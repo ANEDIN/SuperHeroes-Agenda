@@ -1,0 +1,238 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Scroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="580dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin" >
+
+        <ImageView
+            android:id="@+id/imagenUsuario"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="31dp"
+            android:clickable="false"
+            android:longClickable="false"
+            android:maxHeight="64dp"
+            android:maxWidth="64dp"
+            android:src="@android:drawable/ic_dialog_info" />
+
+        <LinearLayout
+            android:id="@+id/Botones"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="21dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp" >
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView2"
+            android:layout_below="@+id/TextView1"
+            android:clickable="false"
+            android:text="TextView"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/TextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView1"
+            android:layout_below="@+id/txtMail"
+            android:layout_marginTop="18dp"
+            android:text="Telefono"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/TxtTelefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView2"
+            android:layout_below="@+id/TextView2"
+            android:clickable="false"
+            android:longClickable="false"
+            android:text="TextView"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/TextView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imagenUsuario"
+            android:layout_alignLeft="@+id/txtNombre"
+            android:text="Direccion"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView3"
+            android:layout_below="@+id/TextView3"
+            android:layout_marginTop="33dp"
+            android:text="Mail:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txtDireccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView3"
+            android:layout_below="@+id/TextView3"
+            android:clickable="false"
+            android:longClickable="false"
+            android:text="TextView"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_toRightOf="@+id/imagenUsuario"
+            android:text="Nombre"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/TxtTelefono"
+            android:layout_marginTop="23dp"
+            android:text="@string/redessociales"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/TextCuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/RedesSociales2"
+            android:layout_marginTop="22dp"
+            android:text="@string/sexo"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/tipoContacto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/TextView2"
+            android:layout_below="@+id/grupo"
+            android:layout_marginTop="20dp"
+            android:clickable="false"
+            android:entries="@array/tipoContacto_array"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:longClickable="false"
+            android:prompt="@string/tipo_de_contacto" />
+
+        <TextView
+            android:id="@+id/txtNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_below="@+id/textView3"
+            android:clickable="false"
+            android:text="TextView"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:id="@+id/RedesSociales2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/RedesSociales1"
+            android:layout_toRightOf="@+id/RedesSociales1"
+            android:clickable="false"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin" >
+
+            <CheckBox
+                android:id="@+id/linkedin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="@string/linkedin" />
+
+            <CheckBox
+                android:id="@+id/twitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="@string/twitter" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/RedesSociales1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/textView1"
+            android:layout_below="@+id/textView1"
+            android:layout_marginTop="31dp"
+            android:clickable="false"
+            android:orientation="vertical" >
+
+            <CheckBox
+                android:id="@+id/google"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="@string/google" />
+
+            <CheckBox
+                android:id="@+id/facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="@string/facebook" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/grupo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/TextCuenta"
+            android:clickable="false"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/hombre"
+                android:layout_width="123dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:clickable="false"
+                android:text="@string/hombre" />
+
+            <RadioButton
+                android:id="@+id/mujer"
+                android:layout_width="match_parent"
+                android:layout_marginRight="25dp"
+                android:layout_weight="0.81"
+                android:clickable="false"
+                android:text="@string/mujer" />
+        </RadioGroup>
+
+    </RelativeLayout>
+
+</ScrollView>

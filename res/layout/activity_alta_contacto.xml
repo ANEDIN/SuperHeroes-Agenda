@@ -1,0 +1,210 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="667dp"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin" >
+
+
+    <EditText
+        android:id="@+id/direccion"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mail"
+        android:layout_below="@+id/mail"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:ems="10"
+        android:hint="@string/entra_direccion"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/mail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nombre"
+        android:layout_below="@+id/nombre"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:ems="5"
+        android:hint="@string/entrar_mail"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/nombre"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/Botones"
+        android:layout_below="@+id/imagenUsuario"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:ems="5"
+        android:hint="@string/entra_nombre"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/telefono"
+        android:layout_below="@+id/telefono"
+        android:layout_marginTop="23dp"
+        android:text="@string/redessociales"
+        android:textSize="20dp" />
+
+    <LinearLayout
+        android:id="@+id/Botones"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp" >
+
+        <Button
+            android:id="@+id/BtnAceptar"
+            style="@style/AppBaseTheme"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="OnClickAceptar"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:text="@string/aceptar" />
+
+        <Button
+            android:id="@+id/BtnCancelar"
+            style="@style/AppBaseTheme"
+            android:layout_width="151dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="OnClickCancelar"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:text="@string/cancelar" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/RedesSociales2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/RedesSociales1"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical" >
+
+        <CheckBox
+            android:id="@+id/linkedin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/linkedin" />
+
+        <CheckBox
+            android:id="@+id/twitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/twitter" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/RedesSociales1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imagenUsuario"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/TextCuenta"
+        android:orientation="vertical" >
+
+        <CheckBox
+            android:id="@+id/google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/google" />
+
+        <CheckBox
+            android:id="@+id/facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/facebook" />
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/tipoContacto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_below="@+id/grupo"
+        android:layout_marginTop="23dp"
+        android:entries="@array/tipoContacto_array"
+        android:prompt="@string/tipo_de_contacto" />
+
+    <ImageView
+        android:id="@+id/imagenUsuario"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:longClickable="true"
+        android:maxHeight="48dp"
+        android:maxWidth="48dp"
+        android:src="@android:drawable/ic_dialog_info" />
+
+    <RadioGroup
+        android:id="@+id/grupo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/RedesSociales2"
+        android:layout_below="@+id/TextCuenta"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/hombre"
+            android:layout_width="123dp"
+            android:layout_marginLeft="25dp"
+            android:onClick="OnRadioButtonClick"
+            android:text="@string/hombre" />
+
+        <RadioButton
+            android:id="@+id/mujer"
+            android:layout_width="match_parent"
+            android:layout_marginRight="25dp"
+            android:layout_weight="0.81"
+            android:onClick="OnRadioButtonClick"
+            android:text="@string/mujer" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/telefono"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/direccion"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:ems="10"
+        android:hint="@string/entra_telefono"
+        android:inputType="phone" />
+
+    <TextView
+        android:id="@+id/TextCuenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/RedesSociales1"
+        android:layout_marginTop="17dp"
+        android:text="@string/sexo"
+        android:textSize="20dp" />
+
+    </RelativeLayout>
+</ScrollView>

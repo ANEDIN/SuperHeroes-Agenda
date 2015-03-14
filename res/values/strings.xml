@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Informacion</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="tvItemField">Campo Textview</string>
+    <string name="tvItemComponent">Contenido</string>
+    <string name="title_activity_alta_usuario">Alta de contacto</string>
+    <string name="entra_nombre">Pon tu nombre</string>
+    <string name="entrar_mail">Pon tu email</string>
+    <string name="entra_direccion">Direccion</string>
+    <string name="entra_telefono">Telefono</string>
+    <string name="launch">No se que es</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+
+    <string-array name="tipoContacto_array">
+        <item>Laboral</item>
+        <item>Amigo</item>
+        <item>Familia</item>
+    </string-array>
+
+    <string name="mujer">Mujer</string>
+    <string name="hombre">Hombre</string>
+    <string name="facebook">Facebook</string>
+    <string name="Twitter">Twitter</string>
+    <string name="linkedin">Linkedin</string>
+    <string name="google">Google+</string>
+    <string name="redessociales">Redes sociales</string>
+    <string name="sexo">Sexo</string>
+    <string name="tipo_de_contacto">Tipo de contacto</string>
+    <string name="twitter">Twitter</string>
+    <string name="title_activity_mostrar_usuario"> Mostrar contacto</string>
+    <string name="title_activity_acerca_de">Acerca de...</string>
+    <string name="title_activity_login">Informacion</string>
+    <string name="usuario">Usuario :</string>
+    <string name="identificate">Identificate en Supercontactos</string>
+    <string name="contrasena">Contraseña :</string>
+    <string name="entrar">Entrar</string>
+
+</resources>

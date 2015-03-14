@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+    
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuimagen1"
+        android:title="Thor"
+        android:icon="@drawable/thor"/>
+
+    <item
+        android:id="@+id/menuimagen2"
+        android:title="Spidey"
+        android:icon="@drawable/spidey" />
+
+    <item
+        android:id="@+id/menuimagen3"
+        android:title="Hulk"
+        android:icon="@drawable/hulk" />
+
+    <item
+        android:id="@+id/menuimagen4"
+        android:title="Ironman"
+        android:icon="@drawable/ironman" />
+    
+    <item
+        android:id="@+id/menuimagen5"
+        android:title="Capitan America"
+        android:icon="@drawable/capitanamerica" />
+    
+</menu>
+

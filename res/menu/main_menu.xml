@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+      <item
+            android:id="@+id/btAnadirContacto"
+            android:title="Añadir contacto"
+            android:icon="@drawable/addcontacts"/>
+      
+      <item
+            android:id="@+id/btInfo"
+            android:title="Acerca de"
+            android:icon="@drawable/info_icon"/>
+   
+</menu>
+

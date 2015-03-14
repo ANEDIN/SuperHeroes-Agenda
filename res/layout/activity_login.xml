@@ -1,0 +1,117 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.informacion.Login" >
+
+    <TextView
+        android:id="@+id/LblMensaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dip"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/LblMensaje"
+        android:layout_centerHorizontal="true"
+        android:text="@string/identificate"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/TextUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/LblMensaje"
+        android:text="@string/usuario"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TextContrasena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextUsuario"
+        android:layout_marginTop="55dp"
+        android:layout_toRightOf="@+id/LblMensaje"
+        android:text="@string/contrasena"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextUsuario"
+        android:layout_toRightOf="@+id/LblMensaje"
+        android:orientation="horizontal" >
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/BtnEntrar"
+        style="@style/AppBaseTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/LblMensaje"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/TxtUsuario"
+        android:layout_weight="7.33"
+        android:onClick="ClicLogin"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:text="@string/entrar" />
+
+    <EditText
+        android:id="@+id/TxtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextContrasena"
+        android:layout_alignRight="@+id/TxtUsuario"
+        android:layout_below="@+id/TextContrasena"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/TxtUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/marvelheroes" />
+
+    <TextView
+        android:id="@+id/TextCuenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/BtnEntrar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:onClick="ClickCuentaNueva"
+        android:text="Crea una cuenta nueva"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textSize="16sp" />
+
+</RelativeLayout>
