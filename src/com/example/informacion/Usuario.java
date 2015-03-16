@@ -6,7 +6,7 @@ import android.os.Parcelable;
 public class Usuario implements Parcelable {
 	
 	private String nombre;
-	private String contraseña;
+	private String contrasenya;
 	private String mail;
 	private int algoritmoEncriptacion;
 	
@@ -27,10 +27,10 @@ public class Usuario implements Parcelable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Usuario(String nombre, String contraseña, String mail) {
+	public Usuario(String nombre, String contrasenya, String mail) {
 		super();
 		this.nombre = nombre;
-		this.contraseña = contraseña;
+		this.contrasenya = contrasenya;
 		this.mail = mail;
 	}
 
@@ -42,12 +42,12 @@ public class Usuario implements Parcelable {
 		this.nombre = nombre;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasenya() {
+		return contrasenya;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasenya(String contrasenya) {
+		this.contrasenya = contrasenya;
 	}
 
 	public String getMail() {

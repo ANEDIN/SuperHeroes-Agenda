@@ -77,25 +77,25 @@ public void ClicLogin (View view){
 	Integer resultado = 0;
 	usuarioaValidar.setNombre(entradaUsuario.getText().toString());
 	
-    usuarioaValidar.setContraseña(entradaPassword.getText().toString());
+    usuarioaValidar.setContrasenya(entradaPassword.getText().toString());
     
   //Validación de ambos campos vacios
-    if ( usuarioaValidar.getNombre().equals("") && usuarioaValidar.getContraseña().equals(""))
+    if ( usuarioaValidar.getNombre().equals("") && usuarioaValidar.getContrasenya().equals(""))
     
     	Toast.makeText(getApplicationContext(), "Login y Password vacios", Toast.LENGTH_SHORT).show();
 
     	//Validación del login vacio ( solo login)
-    	else if( (usuarioaValidar.getNombre().equals("")) && ( usuarioaValidar.getContraseña().equals("") == false))
+    	else if( (usuarioaValidar.getNombre().equals("")) && ( usuarioaValidar.getContrasenya().equals("") == false))
     
     		Toast.makeText(getApplicationContext(),"Login vacio",Toast.LENGTH_SHORT).show();
 
 
     	//Validación de password vacio ( solo password)
-    		else if((usuarioaValidar.getNombre().equals("")==false ) && (usuarioaValidar.getContraseña().equals("")))
+    		else if((usuarioaValidar.getNombre().equals("")==false ) && (usuarioaValidar.getContrasenya().equals("")))
     			Toast.makeText(getApplicationContext(), "Password vacio", Toast.LENGTH_SHORT).show();
 
     	//Validación de login y password lleno
-    			else if ((usuarioaValidar.getNombre().equals("")==false ) && (usuarioaValidar.getContraseña().equals("")==false))
+    			else if ((usuarioaValidar.getNombre().equals("")==false ) && (usuarioaValidar.getContrasenya().equals("")==false))
     				{
     					//llamada a la tarea asincrona
     				try {
@@ -167,8 +167,8 @@ class MiTarea extends AsyncTask<Usuario, String, Integer> {
 				String nombre=usuarioaValidar[0].getNombre();
 				actual.setNombre(StringEncriptacion.getStringMessageDigest(nombre,AlgoritmoEncriptacion));
 				
-				String contraseña=usuarioaValidar[0].getContraseña();
-				actual.setContraseña(StringEncriptacion.getStringMessageDigest(contraseña,AlgoritmoEncriptacion));
+				String contrasenya=usuarioaValidar[0].getContrasenya();
+				actual.setContrasenya(StringEncriptacion.getStringMessageDigest(contrasenya,AlgoritmoEncriptacion));
 				//Como primer parámetro "key" indicaremos la clave/palabra que queremos recuperar. Y como segundo parámetro "defValue" indicaremos un valor 
 				//por defecto a devolver en caso de que el dato que queremos recuperar no exista. 
 				String silent = usuario.getString(actual.getNombre(),"");
@@ -177,7 +177,7 @@ class MiTarea extends AsyncTask<Usuario, String, Integer> {
 				 	{
 					//El Hashmap contiene la clave ( usuario existe)
 					
-				     if(actual.getContraseña().equals(silent) )   //actual.getContraseña().equals(UsuariosGlobal.getInstance().misUsuarios.get(actual.getNombre()).getContraseña())
+				     if(actual.getContrasenya().equals(silent) )   //actual.getContraseña().equals(UsuariosGlobal.getInstance().misUsuarios.get(actual.getNombre()).getContraseña())
 					 	{
 				    	 //El usuario existe y la contraseña coincide. Nombre correcto y contraseña correcta.
 				    	   return 1;
@@ -207,7 +207,7 @@ class MiTarea extends AsyncTask<Usuario, String, Integer> {
 			           manager.notify(0, notification.build());
 			           
 			           SharedPreferences.Editor editor = usuario.edit();
-			           editor.putString(actual.getNombre(), actual.getContraseña());
+			           editor.putString(actual.getNombre(), actual.getContrasenya());
 
 			           // Commit the edits!
 			           editor.commit();
