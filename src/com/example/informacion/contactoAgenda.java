@@ -2,7 +2,6 @@ package com.example.informacion;
 
 import java.io.Serializable;
 
-import android.os.Parcelable;
 
 public class contactoAgenda implements Serializable {
 	

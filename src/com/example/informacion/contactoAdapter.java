@@ -1,10 +1,7 @@
 package com.example.informacion;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.example.informacion.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

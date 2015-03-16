@@ -1,6 +1,5 @@
 package com.example.informacion;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UsuariosGlobal {

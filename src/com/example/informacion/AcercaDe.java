@@ -1,13 +1,8 @@
 package com.example.informacion;
 
-import com.example.informacion.R;
-
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.MediaController;
 import android.widget.VideoView;
 
 
