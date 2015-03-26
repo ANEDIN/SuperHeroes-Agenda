@@ -1,4 +1,4 @@
-# Bienvenido a SuperHeroes Agenda !!!!!
+# Bienvenido a SuperHeroes Agenda
 
 Proyecto desarrollado en eclipse.
 
