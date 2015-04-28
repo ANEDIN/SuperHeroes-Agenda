@@ -24,14 +24,14 @@ import java.util.Iterator;
 
 public class AltaContacto extends Activity {
 
-	contactoAgenda contactoActual;
+	ContactoAgenda contactoActual;
 	private EditText edtxtNombre;
 	private EditText edtxtDireccion;
 	private EditText edtxtMail;
 	private EditText edtxtTelefono;
 	
 	
-//	private Button botonCancelar;
+	//private Button botonCancelar;
 	//private Button botonAceptar;
 	
 	private ImageView imgContacto;
@@ -49,7 +49,7 @@ public class AltaContacto extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alta_contacto);
 		
-		contactoActual = new contactoAgenda();
+		contactoActual = new ContactoAgenda();
 		contactoActual.setDrawableImageId(R.drawable.info_icon); // Ponemos una imagen por defecto
 		
 		edtxtNombre = (EditText) findViewById(R.id.nombre);
@@ -63,7 +63,6 @@ public class AltaContacto extends Activity {
 		
 		sexo = (RadioButton) findViewById(R.id.hombre);
 		
-	 
 	    imgContacto.setImageResource(R.drawable.addcontacts);
 	    registerForContextMenu(imgContacto);
 	    sexo.setChecked(true);
@@ -147,8 +146,7 @@ public class AltaContacto extends Activity {
 	}
 	
 	public void OnClickAceptar(View view){
-		
-		
+
 		contactoActual.setNombre(edtxtNombre.getText().toString());
 		contactoActual.setMail(edtxtMail.getText().toString());
 		contactoActual.setDireccion(edtxtDireccion.getText().toString());
@@ -159,40 +157,40 @@ public class AltaContacto extends Activity {
 		if (sexo.isChecked()) contactoActual.setSexo(1);
 		
 		if (comprobarContacto(contactoActual)) {
-									BaseDatosGlobal.getInstance(AltaContacto.this).agendaBaseDatos.insertarContacto(contactoActual);//mail
-						//			insertarContacto( BaseDatosGlobal.getInstance(AltaContacto.this).agendaBaseDatos,contactoActual);//mail
+			BaseDatosGlobal.getInstance(AltaContacto.this).agendaBaseDatos.insertarContacto(contactoActual);//mail
+			//insertarContacto( BaseDatosGlobal.getInstance(AltaContacto.this).agendaBaseDatos,contactoActual);//mail
 
-									AgendaGlobal.getInstance().miAgenda.add(contactoActual);
-									notification = new NotificationCompat.Builder(AltaContacto.this);
-							           //Title for Notification
-							           notification.setContentTitle("Interfaces actualización");
-							           //Message in the Notification
-							           notification.setContentText("Alta del contacto " + contactoActual.getNombre()+  " correcta!");
-							           //Alert shown when Notification is received
-							           notification.setTicker("Nueva notificación Android:");
-							           //Icon to be set on Notification
-							           notification.setSmallIcon(R.drawable.ironman);
+			AgendaGlobal.getInstance().miAgenda.add(contactoActual);
+			notification = new NotificationCompat.Builder(AltaContacto.this);
+			//Title for Notification
+			notification.setContentTitle("Interfaces actualización");
+			//Message in the Notification
+			notification.setContentText("Alta del contacto " + contactoActual.getNombre()+  " correcta!");
+			//Alert shown when Notification is received
+			notification.setTicker("Nueva notificación Android:");
+			//Icon to be set on Notification
+			notification.setSmallIcon(R.drawable.ironman);
 							           
-							           //PARTTE DE TOCAR NOTIFICACION TE ENVIA A UNA ACTIVIDAD: 
-							           //Creating new Stack Builder
+			//PARTTE DE TOCAR NOTIFICACION TE ENVIA A UNA ACTIVIDAD: 
+			//Creating new Stack Builder
 							           
-							       /*    stackBuilder = TaskStackBuilder.create(AltaContacto.this);
-							           stackBuilder.addParentStack(MainActivity.class);
-							           //Intent which is opened when notification is clicked
-							           resultIntent = new Intent(AltaContacto.this, MainActivity.class);
-							           stackBuilder.addNextIntent(resultIntent);
-							           pIntent =  stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-							               notification.setContentIntent(pIntent);*/
-							             manager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-							               manager.notify(0, notification.build());
-							            Intent intent = new Intent(this, MainActivity.class);
-							            startActivity(intent);
+			/*    stackBuilder = TaskStackBuilder.create(AltaContacto.this);
+           	stackBuilder.addParentStack(MainActivity.class);
+           	//Intent which is opened when notification is clicked
+           	resultIntent = new Intent(AltaContacto.this, MainActivity.class);
+           	stackBuilder.addNextIntent(resultIntent);
+           	pIntent =  stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+            notification.setContentIntent(pIntent);*/
+            manager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(0, notification.build());
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
 		} else Toast.makeText(this,"Error en el alta", Toast.LENGTH_LONG).show();
 	}
 	
-	private boolean comprobarContacto(contactoAgenda contactoActual) {
+	private boolean comprobarContacto(ContactoAgenda contactoActual) {
 		
-		Iterator<contactoAgenda> itrContactos = AgendaGlobal.getInstance().miAgenda.iterator();
+		Iterator<ContactoAgenda> itrContactos = AgendaGlobal.getInstance().miAgenda.iterator();
 		if (contactoActual.getMail().equals("")){
 		 	Toast.makeText(this,"Error en el alta, debe haber mail", Toast.LENGTH_LONG).show();
 		 	return false;
@@ -204,23 +202,20 @@ public class AltaContacto extends Activity {
 		}
 		
 		while(itrContactos.hasNext()){
-			contactoAgenda contacto = itrContactos.next();
+			ContactoAgenda contacto = itrContactos.next();
 			if (contactoActual.getMail().equals(contacto.getMail())){
-					 	Toast.makeText(this,"El mail esta dado de alta", Toast.LENGTH_LONG).show();
-					 	return false;
+				Toast.makeText(this,"El mail esta dado de alta", Toast.LENGTH_LONG).show();
+				return false;
 			}
-		}
-		
-	return true;
-
+		}		
+	
+		return true;
 	}
 
 
 
 	public void OnClickCancelar(View view){
-		
-		
-		
+
 		Intent intent = new Intent(this,MainActivity.class);
 		Toast.makeText(this,"Eres una nenaza", Toast.LENGTH_LONG).show();
 		
@@ -241,40 +236,37 @@ public class AltaContacto extends Activity {
 	public boolean onContextItemSelected(MenuItem item) {
 
 	    switch (item.getItemId()) {
-	        
-				case R.id.menuimagen1:
-					imgContacto.setImageResource(R.drawable.thor);
-					contactoActual.setDrawableImageId(R.drawable.thor);
-					return true;
+	    	case R.id.menuimagen1:
+				imgContacto.setImageResource(R.drawable.thor);
+				contactoActual.setDrawableImageId(R.drawable.thor);
+				return true;
 
-				case R.id.menuimagen2:
-					imgContacto.setImageResource(R.drawable.spidey);
-					contactoActual.setDrawableImageId(R.drawable.spidey);
-					return true;
-				
-				case R.id.menuimagen3:
-					imgContacto.setImageResource(R.drawable.hulk);
-					contactoActual.setDrawableImageId(R.drawable.hulk);
-					return true;
+			case R.id.menuimagen2:
+				imgContacto.setImageResource(R.drawable.spidey);
+				contactoActual.setDrawableImageId(R.drawable.spidey);
+				return true;
+			
+			case R.id.menuimagen3:
+				imgContacto.setImageResource(R.drawable.hulk);
+				contactoActual.setDrawableImageId(R.drawable.hulk);
+				return true;
 
-				case R.id.menuimagen4:
-					imgContacto.setImageResource(R.drawable.ironman);
-					contactoActual.setDrawableImageId(R.drawable.ironman);
-					return true;
-				
-				case R.id.menuimagen5:
-					imgContacto.setImageResource(R.drawable.capitanamerica);
-					contactoActual.setDrawableImageId(R.drawable.capitanamerica);
-					return true;
+			case R.id.menuimagen4:
+				imgContacto.setImageResource(R.drawable.ironman);
+				contactoActual.setDrawableImageId(R.drawable.ironman);
+				return true;
+			
+			case R.id.menuimagen5:
+				imgContacto.setImageResource(R.drawable.capitanamerica);
+				contactoActual.setDrawableImageId(R.drawable.capitanamerica);
+				return true;
 
-				default:
-					imgContacto.setImageResource(R.drawable.info_icon);
-					contactoActual.setDrawableImageId(R.drawable.info_icon);
-					return super.onContextItemSelected(item);
+			default:
+				imgContacto.setImageResource(R.drawable.info_icon);
+				contactoActual.setDrawableImageId(R.drawable.info_icon);
+				return super.onContextItemSelected(item);
 				
 	    }
-
 	}
-
-	}	
+}	
 

@@ -17,7 +17,7 @@ public class MostrarContacto extends Activity {
 	public static final String EXTRA_MAIL = "com.example.informacion.MAIL";
 	public static final String EXTRA_POSITION = "com.example.informacion.POSITION";
 	
-	contactoAgenda contactoActual;
+	ContactoAgenda contactoActual;
 	private TextView edtxtNombre;
 	private TextView edtxtDireccion;
 	private TextView edtxtMail;
@@ -42,7 +42,7 @@ public class MostrarContacto extends Activity {
 		
 		String Mail = null;
 		int posicion = 0;
-		contactoActual = new contactoAgenda();
+		contactoActual = new ContactoAgenda();
 		
 		edtxtNombre = (TextView) findViewById(R.id.txtNombre);
 		edtxtDireccion = (TextView) findViewById(R.id.txtDireccion);
@@ -63,8 +63,8 @@ public class MostrarContacto extends Activity {
 		Intent intent = getIntent();
 		Bundle extras= intent.getExtras();
 		if (extras != null) {
-		  Mail = extras.getString(EXTRA_MAIL);
-		  posicion =extras.getInt(EXTRA_POSITION);
+			Mail = extras.getString(EXTRA_MAIL);
+			posicion =extras.getInt(EXTRA_POSITION);
 		}
 		
 		

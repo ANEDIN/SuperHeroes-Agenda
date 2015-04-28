@@ -11,7 +11,6 @@ public class Usuario implements Parcelable {
 	private int algoritmoEncriptacion;
 	
 
-	
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
@@ -57,7 +56,5 @@ public class Usuario implements Parcelable {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	
-	
 
 }

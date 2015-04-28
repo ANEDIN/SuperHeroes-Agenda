@@ -67,8 +67,8 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO Auto-generated method stub
 		// db.execSQL("DROP TABLE IF EXISTS " + TABLA_CONTACTOS);
-			db.execSQL("DROP TABLE IF EXISTS " + TABLA);
-			onCreate(db);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLA);
+		onCreate(db);
 		//	insertarContacto("Belen", "c/ Diego Madrazo","1", "belen@gmail.com",1, 1, 0, 0, 0,"Familia", R.drawable.hulk);
 
 	}
@@ -97,13 +97,12 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 			valores.put("tipocontacto", tipocontacto);
 			valores.put("imagen", imagen);
 			//db.insert("contactos", null, valores);
-			 try {
-			        db.insertOrThrow(TABLA, null, valores); //TABLA por "contactos"
-			    } catch (SQLiteConstraintException e) {
-			        Log.d(TAG, "Fallo en la insercion: seguramente la clave ya existe.");
-			        //return false;
-			    }
-			
+			try {
+				db.insertOrThrow(TABLA, null, valores); //TABLA por "contactos"
+			} catch (SQLiteConstraintException e) {
+				Log.d(TAG, "Fallo en la insercion: seguramente la clave ya existe.");
+				//return false;
+			}
 		}
 		db.close();   
 	}
@@ -124,19 +123,17 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 			valores.put("tipocontacto", tipocontacto);
 			valores.put("imagen", imagen);
 			//db.insert("contactos", null, valores);
-			 try {
-			        db.insertOrThrow(TABLA, null, valores); //TABLA por "contactos"
-			    } catch (SQLiteConstraintException e) {
-			        Log.d(TAG, "Fallo en la insercion: seguramente la clave ya existe.");
-			        //return false;
-			    }
-			
+			try {
+				db.insertOrThrow(TABLA, null, valores); //TABLA por "contactos"
+			} catch (SQLiteConstraintException e) {
+				Log.d(TAG, "Fallo en la insercion: seguramente la clave ya existe.");
+				//return false;
+			}
 		}   
 	}
 	
-	
-//Creo un insertarcontacto propio pasandole un contacto
-	public void insertarContacto(contactoAgenda contacto){
+	//Creo un insertarcontacto propio pasandole un contacto
+	public void insertarContacto(ContactoAgenda contacto){
 		SQLiteDatabase db = getWritableDatabase();
 		if (db != null) {
 			ContentValues valores = new ContentValues();
@@ -156,12 +153,13 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 			try {
 		        db.insertOrThrow(TABLA, null, valores); //TABLA por "contactos"
 		    } catch (SQLiteConstraintException e) {
-		        Log.d(TAG, "Fallo en la insercion: seguramente la clave ya existe.");
+		    	Log.d(TAG, "Fallo en la insercion: seguramente la clave ya existe.");
 		        //return false;
 		    }   
 		}
 		db.close();   
 	}
+	
 	/*El método "update(table, values, whereClause, whereArgs)" para actualizar/modificar registros de nuestra tabla. 
 	 * Este método nos pide el nombre de la tabla "table", los valores a modificar/actualizar "values" (ContentValues), 
 	 * una condición WHERE "whereClause" que nos sirve para indicarle que valor queremos que actualice 
@@ -188,7 +186,7 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 	    db.close();   
 	}
 	
-	public void modificarContacto(contactoAgenda contacto){
+	public void modificarContacto(ContactoAgenda contacto){
 		
 	    SQLiteDatabase db = getWritableDatabase();
 	    ContentValues valores = new ContentValues();
@@ -203,7 +201,7 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 		valores.put("sexo", contacto.isSexo());
 		valores.put("tipocontacto", contacto.getTipoContacto());
 		valores.put("imagen", contacto.getDrawableImageId());
-	//	String mail="\""+contacto.getMail()+"\"";
+		//	String mail="\""+contacto.getMail()+"\"";
 	    db.update(TABLA, valores, "email=" + contacto.getMail(), null);
 	    //db.update("contactos", valores, "_id=" + id, null); ---> db.update("contactos", valores, "_id=" + id, null);
 	    db.close();   
@@ -221,7 +219,7 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 	    db.close();  
 	}
 	
-	public void borrarContacto( contactoAgenda contacto) {
+	public void borrarContacto( ContactoAgenda contacto) {
 	    SQLiteDatabase db = getWritableDatabase();
 	    db.delete(TABLA, "email= '" + contacto.getMail()+"'", null);
 	    db.close();  
@@ -247,17 +245,17 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 
 		Para terminar debemos cerrar la base de datos y el cursor.*/
 	
-	public contactoAgenda recuperarContacto(String email) {
-	    SQLiteDatabase db = getReadableDatabase();
+	public ContactoAgenda recuperarContacto(String email) {
+		SQLiteDatabase db = getReadableDatabase();
 	    
-	    String[] valores_recuperar = {"nombre","direccion","telefono","email", "miembrofacebook","miembrotwitter","miembrogoogle","miembrolinkedin","sexo","tipocontacto","imagen"};	
+		String[] valores_recuperar = {"nombre","direccion","telefono","email", "miembrofacebook","miembrotwitter","miembrogoogle","miembrolinkedin","sexo","tipocontacto","imagen"};	
 
-	   Cursor c = db.query(TABLA, valores_recuperar, "email= '" + email+"'", null, null, null, null,null);
+		Cursor c = db.query(TABLA, valores_recuperar, "email= '" + email+"'", null, null, null, null,null);
 
 	    if(c != null) {
 	        c.moveToFirst();
 	    }
-	    contactoAgenda contactos = new contactoAgenda(c.getString(0), c.getString(1), c.getString(2), c.getString(3),c.getInt(4), c.getInt(5), c.getInt(6), c.getInt(7),c.getInt(8), c.getString(9), c.getInt(10));
+	    ContactoAgenda contactos = new ContactoAgenda(c.getString(0), c.getString(1), c.getString(2), c.getString(3),c.getInt(4), c.getInt(5), c.getInt(6), c.getInt(7),c.getInt(8), c.getString(9), c.getInt(10));
         db.close();
         c.close();
         return contactos;
@@ -300,14 +298,14 @@ c.close();
 	como parámetro que se encargara de pasar al siguiente registro de la tabla y por lo tanto recorrer todos los registros 
 	de la tabla.
 */	
-	public ArrayList<contactoAgenda> recuperarTodosContactos() {
+	public ArrayList<ContactoAgenda> recuperarTodosContactos() {
 	    SQLiteDatabase db = getReadableDatabase();
-	    ArrayList<contactoAgenda> lista_contactos = new ArrayList<contactoAgenda>();
+	    ArrayList<ContactoAgenda> lista_contactos = new ArrayList<ContactoAgenda>();
 	    String[] valores_recuperar = {"nombre","direccion","telefono","email","miembrofacebook","miembrotwitter","miembrogoogle","miembrolinkedin","sexo","tipocontacto","imagen"};
 	    Cursor c = db.query(TABLA, valores_recuperar, null, null, null, null, null, null);
 	    c.moveToFirst();
 	    do {
-	    	contactoAgenda contactos = new contactoAgenda(c.getString(0), c.getString(1), c.getString(2), c.getString(3),c.getInt(4), c.getInt(5), c.getInt(6), c.getInt(7),c.getInt(8), c.getString(9), c.getInt(10));
+	    	ContactoAgenda contactos = new ContactoAgenda(c.getString(0), c.getString(1), c.getString(2), c.getString(3),c.getInt(4), c.getInt(5), c.getInt(6), c.getInt(7),c.getInt(8), c.getString(9), c.getInt(10));
 	    	lista_contactos.add(contactos);
 		} while (c.moveToNext());
 	   

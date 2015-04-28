@@ -26,7 +26,7 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 	public static final String EXTRA_POSITION = "com.example.informacion.POSITION";
 	
 	private ListView lvContactos;
-	private contactoAdapter adapter;
+	private ContactoAdapter adapter;
 
 	private int PosicionActual=0;
 
@@ -35,27 +35,24 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);//setContentView(R.layout.activity_main);
+
+		AgendaGlobal.getInstance().miAgenda = BaseDatosGlobal.getInstance(this).agendaBaseDatos.recuperarTodosContactos();
+
+		adapter = new ContactoAdapter(this, AgendaGlobal.getInstance().miAgenda);
 		
-
-				AgendaGlobal.getInstance().miAgenda = BaseDatosGlobal.getInstance(this).agendaBaseDatos.recuperarTodosContactos();
-
-				
-				adapter = new contactoAdapter(this, AgendaGlobal.getInstance().miAgenda);
-				
-				lvContactos = (ListView) findViewById(R.id.lvItems);
-				// Asignamos el Adapter al ListView, en este punto hacemos que el
-				// ListView muestre los datos que queremos.
-				
-				
-				lvContactos.setAdapter(adapter);
-				// Asignamos el Listener al ListView para cuando pulsamos sobre uno de
-				// sus items.
-				lvContactos.setOnItemClickListener(this);
-				
-				lvContactos.setOnItemLongClickListener(this);
-				
-				registerForContextMenu(lvContactos);
-							
+		lvContactos = (ListView) findViewById(R.id.lvItems);
+		// Asignamos el Adapter al ListView, en este punto hacemos que el
+		// ListView muestre los datos que queremos.
+		
+		
+		lvContactos.setAdapter(adapter);
+		// Asignamos el Listener al ListView para cuando pulsamos sobre uno de
+		// sus items.
+		lvContactos.setOnItemClickListener(this);
+		
+		lvContactos.setOnItemLongClickListener(this);
+		
+		registerForContextMenu(lvContactos);					
 	}
 
 
@@ -64,35 +61,35 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		
-		 MenuInflater inflater = getMenuInflater();
-         inflater.inflate(R.menu.main_menu, menu);
-	//	getMenuInflater().inflate(R.menu.main_menu, menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		//	getMenuInflater().inflate(R.menu.main_menu, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+
 		Intent intent;
 		
 		int id = item.getItemId();
-		 switch (item.getItemId()) {
-	        case (R.id.btAnadirContacto):
-	           Toast.makeText(getApplicationContext(), "Has pulasado añadir Contacto", Toast.LENGTH_SHORT).show();
-	        intent = new Intent(this, AltaContacto.class);
-		    startActivity(intent);
-	           return true;
+		switch (item.getItemId()) {
+			case (R.id.btAnadirContacto):
+				Toast.makeText(getApplicationContext(), "Has pulasado añadir Contacto", Toast.LENGTH_SHORT).show();
+	        	intent = new Intent(this, AltaContacto.class);
+	        	startActivity(intent);
+	        	return true;
 	        case R.id.btInfo:
-	           Toast.makeText(getApplicationContext(), "Has pulsado la opción Acerca de", Toast.LENGTH_SHORT).show();
-	           intent = new Intent(this, AcercaDe.class);
+	        	Toast.makeText(getApplicationContext(), "Has pulsado la opción Acerca de", Toast.LENGTH_SHORT).show();
+	        	intent = new Intent(this, AcercaDe.class);
 			    startActivity(intent);
-	           return true;
-	    /*    case R.id.btSalir:
-		           Toast.makeText(getApplicationContext(), "Has pulsado la opción Salir", Toast.LENGTH_SHORT).show();
-		           salir();
-		           return true;*/
+			    return true;
+	/*		case R.id.btSalir:
+				Toast.makeText(getApplicationContext(), "Has pulsado la opción Salir", Toast.LENGTH_SHORT).show();
+				salir();
+				return true;*/
 	        default:
-	           return super.onOptionsItemSelected(item);
+	        	return super.onOptionsItemSelected(item);
 	    }
 	}
 	
@@ -134,7 +131,7 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 	/**
 	 * Métotodo que rellena el ArrayList con los contactos que queremos mostrar en el ListView personalizado.
 	 
-private void rellenarArrayList() {
+	private void rellenarArrayList() {
 			
 			
 			new ServicioInicial(MainActivity.this).execute();
@@ -148,8 +145,8 @@ private void rellenarArrayList() {
 		// datos en los TextView.
 		//tvNombre.setText(AgendaGlobal.getInstance().miAgenda.get(position).getNombre());
 		//tvNumCelda.setText(String.valueOf(position));
-
 	}
+	
 	@Override
 	public boolean onItemLongClick(AdapterView<?> adapter, View view, int position,
 			long Id) {
@@ -159,6 +156,7 @@ private void rellenarArrayList() {
 		PosicionActual=position;
 		return false;
 	}
+	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
 	    super.onCreateContextMenu(menu, v, menuInfo);
@@ -167,26 +165,25 @@ private void rellenarArrayList() {
 	    if(v.getId()==R.id.lvItems)
 	        getMenuInflater().inflate(R.menu.menucontextualitem, menu);
 	}
-	
 
 	public boolean onContextItemSelected(MenuItem item) {
 	    
 		switch (item.getItemId()) {
-	    case R.id.opcionEditar:
-	    	Intent intent = new Intent(MainActivity.this, MostrarContacto.class);
-	    	String mail= AgendaGlobal.getInstance().miAgenda.get(PosicionActual).getMail();
-		    intent.putExtra(EXTRA_MAIL,mail);
-		    intent.putExtra(EXTRA_POSITION,PosicionActual);
-	        startActivity(intent);
-	        return true;
+		    case R.id.opcionEditar:
+		    	Intent intent = new Intent(MainActivity.this, MostrarContacto.class);
+		    	String mail= AgendaGlobal.getInstance().miAgenda.get(PosicionActual).getMail();
+			    intent.putExtra(EXTRA_MAIL,mail);
+			    intent.putExtra(EXTRA_POSITION,PosicionActual);
+		        startActivity(intent);
+		        return true;
 	    
-	    case R.id.opcion2Lista:
-	        if (AgendaGlobal.getInstance().miAgenda.size() > 1) EliminarContacto(PosicionActual);
-	        else Toast.makeText(getApplicationContext(), "No se puede dejar la lista vacia", Toast.LENGTH_SHORT).show();
-	        return true;
-	    
-	    default:
-	        return super.onContextItemSelected(item);
+		    case R.id.opcion2Lista:
+		        if (AgendaGlobal.getInstance().miAgenda.size() > 1) EliminarContacto(PosicionActual);
+		        else Toast.makeText(getApplicationContext(), "No se puede dejar la lista vacia", Toast.LENGTH_SHORT).show();
+		        return true;
+		    
+		    default:
+		        return super.onContextItemSelected(item);
 	    }
 	}
 
@@ -199,64 +196,63 @@ private void rellenarArrayList() {
 	     builder.setMessage("¿Confirma eliminar el contacto elegido ?" +" "+ AgendaGlobal.getInstance().miAgenda.get(PosicionActual).getNombre())
 	    .setTitle("Confirmación")
 	    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener()  {
-	           public void onClick(DialogInterface dialog, int id) {
-	                Log.i("Dialogos", "Confirmacion Aceptada.");
-	               // AgendaGlobal.getInstance().miAgenda.remove(PosicionActual);
-	               // String mail=AgendaGlobal.getInstance().miAgenda.get(PosicionActual).getMail();
-	               // mail="\""+mail+"\"";
-	               // Log.i("Dialogos", mail);
-	                Toast.makeText(getApplicationContext(),"Elemento a eliminar: " + AgendaGlobal.getInstance().miAgenda.get(PosicionActual).getMail(), Toast.LENGTH_LONG).show();
-	                BaseDatosGlobal.getInstance(MainActivity.this).agendaBaseDatos.borrarContacto(AgendaGlobal.getInstance().miAgenda.get(PosicionActual).getMail());//mail
-	                AgendaGlobal.getInstance().miAgenda.remove(PosicionActual);
-	                lvContactos.setAdapter(adapter);
-	                   // ControlLogin.this.finish();e
-	               }
-	           })
+	    	public void onClick(DialogInterface dialog, int id) {
+	    		Log.i("Dialogos", "Confirmacion Aceptada.");
+	    		// AgendaGlobal.getInstance().miAgenda.remove(PosicionActual);
+	    		// String mail=AgendaGlobal.getInstance().miAgenda.get(PosicionActual).getMail();
+	    		// mail="\""+mail+"\"";
+	    		// Log.i("Dialogos", mail);
+	    		Toast.makeText(getApplicationContext(),"Elemento a eliminar: " + AgendaGlobal.getInstance().miAgenda.get(PosicionActual).getMail(), Toast.LENGTH_LONG).show();
+	           	BaseDatosGlobal.getInstance(MainActivity.this).agendaBaseDatos.borrarContacto(AgendaGlobal.getInstance().miAgenda.get(PosicionActual).getMail());//mail
+	            AgendaGlobal.getInstance().miAgenda.remove(PosicionActual);
+	            lvContactos.setAdapter(adapter);
+	            // ControlLogin.this.finish();e
+	    	}
+	    })
 	    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {
-	                    Log.i("Dialogos", "Confirmacion Cancelada.");
-	                    dialog.cancel();
-	               }
-	           });
+	    	public void onClick(DialogInterface dialog, int id) {
+	    		Log.i("Dialogos", "Confirmacion Cancelada.");
+	    			dialog.cancel();
+	    	}
+	    });
 	
-	   AlertDialog alert=builder.create();
-	   alert.show();
-	   
+	     AlertDialog alert=builder.create();
+	     alert.show();
 	}
 
 
- public void onAcabeInicializacion() {
+	public void onAcabeInicializacion() {
 		//
+		Toast.makeText(this,"The result is ", Toast.LENGTH_LONG).show();
+	}
 
-		    Toast.makeText(this,"The result is ", Toast.LENGTH_LONG).show();
-		}
 
-
-/*
-@Override
-public void onAcabeInicializacion(Integer result) {
-	// TODO Auto-generated method stub
-
-	Toast.makeText(this,"Numero total de contactos es: "+ AgendaGlobal.getInstance().miAgenda.size(), Toast.LENGTH_LONG).show();
+	/*
+	@Override
+	public void onAcabeInicializacion(Integer result) {
+		// TODO Auto-generated method stub
 	
-	lvContactos.setAdapter(adapter);
-}
-*/
-@Override
-public void onDestroy() {
-  super.onStop();
- // AgendaGlobal.getInstance().miAgenda.clear();  //Clear ArrayList
-}
+		Toast.makeText(this,"Numero total de contactos es: "+ AgendaGlobal.getInstance().miAgenda.size(), Toast.LENGTH_LONG).show();
+		
+		lvContactos.setAdapter(adapter);
+	}
+	*/
 
-public void onStart() {
-	super.onStart();
-	AgendaGlobal.getInstance().miAgenda = BaseDatosGlobal.getInstance(this).agendaBaseDatos.recuperarTodosContactos();
-	lvContactos.setAdapter(adapter);
-}
+	@Override
+	public void onDestroy() {
+		super.onStop();
+		// AgendaGlobal.getInstance().miAgenda.clear();  //Clear ArrayList
+	}
 
-public void onRestart() {
-	super.onRestart();
-	AgendaGlobal.getInstance().miAgenda = BaseDatosGlobal.getInstance(this).agendaBaseDatos.recuperarTodosContactos();
-	lvContactos.setAdapter(adapter);
-}
+	public void onStart() {
+		super.onStart();
+		AgendaGlobal.getInstance().miAgenda = BaseDatosGlobal.getInstance(this).agendaBaseDatos.recuperarTodosContactos();
+		lvContactos.setAdapter(adapter);
+	}
+
+	public void onRestart() {
+		super.onRestart();
+		AgendaGlobal.getInstance().miAgenda = BaseDatosGlobal.getInstance(this).agendaBaseDatos.recuperarTodosContactos();
+		lvContactos.setAdapter(adapter);
+	}
 }

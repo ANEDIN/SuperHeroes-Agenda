@@ -8,24 +8,22 @@ public class BaseDatosGlobal {
 	private Context mCon;
 
 	private BaseDatosGlobal() {
-	
-	  }
+	}
 	
 	private BaseDatosGlobal(Context con) { 
-	    this.mCon=con;
+		this.mCon=con;
 	    agendaBaseDatos = new BaseDatosContactos(con);
-	  }
-
-
+	}
+	
 	private static BaseDatosGlobal instance;
 
-	  public static BaseDatosGlobal getInstance() {
-	    if (instance == null) instance = new BaseDatosGlobal();
+	public static BaseDatosGlobal getInstance() {
+		if (instance == null) instance = new BaseDatosGlobal();
 	    return instance;
-	  }
-	  
-	  public static BaseDatosGlobal getInstance(Context con) {
-		    if (instance == null) instance = new BaseDatosGlobal(con);
-		    return instance;
-		  }
+	}
+
+	public static BaseDatosGlobal getInstance(Context con) {
+		if (instance == null) instance = new BaseDatosGlobal(con);
+		return instance;
+	}
 }
