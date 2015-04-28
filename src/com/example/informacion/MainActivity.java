@@ -96,6 +96,10 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 	    }
 	}
 	
+	/*
+	 * 	no se usa
+	 */
+	/*
 	private void salir() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		
@@ -123,6 +127,7 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 		// TODO Auto-generated method stub
 		
 	}
+	*/
 
 
 
@@ -138,7 +143,7 @@ private void rellenarArrayList() {
 */
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View view, int position,
-			long ID) {
+			long Id) {
 		// Al hacer click sobre uno de los items del ListView mostramos los
 		// datos en los TextView.
 		//tvNombre.setText(AgendaGlobal.getInstance().miAgenda.get(position).getNombre());
@@ -147,7 +152,7 @@ private void rellenarArrayList() {
 	}
 	@Override
 	public boolean onItemLongClick(AdapterView<?> adapter, View view, int position,
-			long ID) {
+			long Id) {
 		// Al hacer click sobre uno de los items del ListView mostramos los
 		// datos en los TextView.
 		//tvNombre.setText("Looong en item numero" + position);

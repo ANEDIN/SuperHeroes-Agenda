@@ -1,8 +1,5 @@
 package com.example.informacion;
 
-
-
-import java.util.Iterator;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -22,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Iterator;
 
 public class AltaContacto extends Activity {
 
@@ -51,7 +50,7 @@ public class AltaContacto extends Activity {
 		setContentView(R.layout.activity_alta_contacto);
 		
 		contactoActual = new contactoAgenda();
-		contactoActual.setDrawableImageID(R.drawable.info_icon); // Ponemos una imagen por defecto
+		contactoActual.setDrawableImageId(R.drawable.info_icon); // Ponemos una imagen por defecto
 		
 		edtxtNombre = (EditText) findViewById(R.id.nombre);
 		edtxtDireccion = (EditText) findViewById(R.id.direccion);
@@ -100,8 +99,7 @@ public class AltaContacto extends Activity {
 	            if (checked) {
 	                contactoActual.setMiembroFacebook(1);
 	            	Toast.makeText(this,"Eres miembro de Facebook", Toast.LENGTH_LONG).show();
-	            }
-	            else {
+	            } else {
 	                contactoActual.setMiembroFacebook(0);
 	            	Toast.makeText(this,"Ya no eres miembro de Facebook", Toast.LENGTH_LONG).show();
 	            }
@@ -110,8 +108,7 @@ public class AltaContacto extends Activity {
 	            if (checked){
 	                contactoActual.setMiembroGoogle(1);
 	            	
-	            }
-	            else {
+	            } else {
 	            	contactoActual.setMiembroGoogle(0);// I'm lactose intolerant
 	            	
 	            }
@@ -149,7 +146,7 @@ public class AltaContacto extends Activity {
 	    }
 	}
 	
-	public void OnClickAceptar (View view){
+	public void OnClickAceptar(View view){
 		
 		
 		contactoActual.setNombre(edtxtNombre.getText().toString());
@@ -190,34 +187,28 @@ public class AltaContacto extends Activity {
 							               manager.notify(0, notification.build());
 							            Intent intent = new Intent(this, MainActivity.class);
 							            startActivity(intent);
-									}
-								 
-		else Toast.makeText(this,"Error en el alta", Toast.LENGTH_LONG).show();
-		
-     }
+		} else Toast.makeText(this,"Error en el alta", Toast.LENGTH_LONG).show();
+	}
 	
 	private boolean comprobarContacto(contactoAgenda contactoActual) {
 		
 		Iterator<contactoAgenda> itrContactos = AgendaGlobal.getInstance().miAgenda.iterator();
-		if (contactoActual.getMail().equals("")) 
-		{
+		if (contactoActual.getMail().equals("")){
 		 	Toast.makeText(this,"Error en el alta, debe haber mail", Toast.LENGTH_LONG).show();
 		 	return false;
 		}
 		
-		if (contactoActual.getNombre().equals("")) 
-		{
+		if (contactoActual.getNombre().equals("")){
 		 	Toast.makeText(this,"Error en el alta, debe haber nombre", Toast.LENGTH_LONG).show();
 		 	return false;
 		}
 		
 		while(itrContactos.hasNext()){
 			contactoAgenda contacto = itrContactos.next();
-			if ( contactoActual.getMail().equals(contacto.getMail()))
-					{
+			if (contactoActual.getMail().equals(contacto.getMail())){
 					 	Toast.makeText(this,"El mail esta dado de alta", Toast.LENGTH_LONG).show();
 					 	return false;
-					}
+			}
 		}
 		
 	return true;
@@ -226,7 +217,7 @@ public class AltaContacto extends Activity {
 
 
 
-	public void OnClickCancelar (View view){
+	public void OnClickCancelar(View view){
 		
 		
 		
@@ -253,32 +244,32 @@ public class AltaContacto extends Activity {
 	        
 				case R.id.menuimagen1:
 					imgContacto.setImageResource(R.drawable.thor);
-					contactoActual.setDrawableImageID(R.drawable.thor);
+					contactoActual.setDrawableImageId(R.drawable.thor);
 					return true;
 
 				case R.id.menuimagen2:
 					imgContacto.setImageResource(R.drawable.spidey);
-					contactoActual.setDrawableImageID(R.drawable.spidey);
+					contactoActual.setDrawableImageId(R.drawable.spidey);
 					return true;
 				
 				case R.id.menuimagen3:
 					imgContacto.setImageResource(R.drawable.hulk);
-					contactoActual.setDrawableImageID(R.drawable.hulk);
+					contactoActual.setDrawableImageId(R.drawable.hulk);
 					return true;
 
 				case R.id.menuimagen4:
 					imgContacto.setImageResource(R.drawable.ironman);
-					contactoActual.setDrawableImageID(R.drawable.ironman);
+					contactoActual.setDrawableImageId(R.drawable.ironman);
 					return true;
 				
 				case R.id.menuimagen5:
 					imgContacto.setImageResource(R.drawable.capitanamerica);
-					contactoActual.setDrawableImageID(R.drawable.capitanamerica);
+					contactoActual.setDrawableImageId(R.drawable.capitanamerica);
 					return true;
 
 				default:
 					imgContacto.setImageResource(R.drawable.info_icon);
-					contactoActual.setDrawableImageID(R.drawable.info_icon);
+					contactoActual.setDrawableImageId(R.drawable.info_icon);
 					return super.onContextItemSelected(item);
 				
 	    }

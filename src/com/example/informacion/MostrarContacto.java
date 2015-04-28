@@ -1,6 +1,5 @@
 package com.example.informacion;
 
-import java.util.Arrays;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.Arrays;
 
 public class MostrarContacto extends Activity {
 	
@@ -81,7 +82,7 @@ public class MostrarContacto extends Activity {
 		if ( AgendaGlobal.getInstance().miAgenda.get(posicion).getTelefono().equals("")) edtxtTelefono.setText("Telefono no disponible");
 		else edtxtTelefono.setText(AgendaGlobal.getInstance().miAgenda.get(posicion).getTelefono());
 	
-		imgContacto.setImageResource(AgendaGlobal.getInstance().miAgenda.get(posicion).getDrawableImageID());
+		imgContacto.setImageResource(AgendaGlobal.getInstance().miAgenda.get(posicion).getDrawableImageId());
 		
 		if (AgendaGlobal.getInstance().miAgenda.get(posicion).isMiembroFacebook()==1) chkFacebook.setChecked(true);
 		else chkFacebook.setChecked(false);

@@ -17,24 +17,24 @@ public class contactoAgenda implements Serializable {
 	private int miembroLinnkedin;
 	private int sexo; // sexo hombre=1, mujer =0
 	private String tipoContacto;
-	private int drawableImageID;
+	private int drawableImageId;
 	/**
-	 * @param nombre
-	 * @param direccion
-	 * @param telefono
-	 * @param mail
-	 * @param miembroFacebook
-	 * @param miembroTwitter
-	 * @param miembroGoogle
-	 * @param miembroLinnkedin
-	 * @param sexo
-	 * @param tipoContacto
-	 * @param drawableImageID
+	 * @param nombre del contacto
+	 * @param direccion  del contacto
+	 * @param telefono del contacto
+	 * @param mail del contacto
+	 * @param miembroFacebook es el contacto miembro?
+	 * @param miembroTwitter es el contacto miembro?
+	 * @param miembroGoogle es el contacto miembro?
+	 * @param miembroLinnkedin es el contacto miembro?
+	 * @param sexo del contacto
+	 * @param tipoContacto tipo del contacto
+	 * @param drawableImageID foto del contacto
 	 */
 	public contactoAgenda(String nombre, String direccion, String telefono,
 			String mail, int miembroFacebook, int miembroTwitter,
 			int miembroGoogle, int miembroLinnkedin, int sexo,
-			String tipoContacto,int drawableImageID ) {
+			String tipoContacto,int drawableImageId ) {
 		super();
 		Nombre = nombre;
 		Direccion = direccion;
@@ -46,19 +46,19 @@ public class contactoAgenda implements Serializable {
 		this.miembroLinnkedin = miembroLinnkedin;
 		this.sexo = sexo;
 		this.tipoContacto = tipoContacto;
-		this.drawableImageID = drawableImageID;
+		this.drawableImageId = drawableImageId;
 	}
 	/**
 	 * @return the drawableImageID
 	 */
-	public int getDrawableImageID() {
-		return drawableImageID;
+	public int getDrawableImageId() {
+		return drawableImageId;
 	}
 	/**
 	 * @param drawableImageID the drawableImageID to set
 	 */
-	public void setDrawableImageID(int drawableImageID) {
-		this.drawableImageID = drawableImageID;
+	public void setDrawableImageId(int drawableImageId) {
+		this.drawableImageId = drawableImageId;
 	}
 	/**
 	 * 
@@ -67,10 +67,10 @@ public class contactoAgenda implements Serializable {
 		super();
 	}
 	/**
-	 * @param nombre
-	 * @param direccion
-	 * @param telefono
-	 * @param mail
+	 * @param nombre del contacto
+	 * @param direccion del contacto
+	 * @param telefono del contacto
+	 * @param mail del contacto
 	 */
 	public contactoAgenda(String nombre, String direccion, String telefono,
 			String mail) {

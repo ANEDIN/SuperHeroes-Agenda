@@ -1,7 +1,5 @@
 package com.example.informacion;
 
-import java.util.ArrayList;
-import com.example.informacion.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.example.informacion.R;
+
+import java.util.ArrayList;
+
 
 /**
  * Clase Adapter que personaliza las vistas de cada ítem a mostrar en el ListView.
@@ -65,7 +67,7 @@ public class contactoAdapter extends ArrayAdapter<contactoAgenda> {
 			// controles.
 			// Le asignamos una foto al ImegeView.
 			
-		   holder.imgContacto.setImageResource(datos.get(position).getDrawableImageID());
+		   holder.imgContacto.setImageResource(datos.get(position).getDrawableImageId());
 			
 			
 
