@@ -81,7 +81,7 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 	y como segundo parÃ¡metro el valor que queremos almacenar. Una vez almacenamos los datos insertamos una fila en la 
 	tabla usamos el mÃ©todo "insert(table, nullColumnHack, values)" 
 */	
-	public void insertarContacto(String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
+	public boolean insertarContacto(String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
 		SQLiteDatabase db = getWritableDatabase();
 		if (db != null) {
 			ContentValues valores = new ContentValues();
@@ -99,15 +99,16 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 			//db.insert("contactos", null, valores);
 			try {
 				db.insertOrThrow(TABLA, null, valores); //TABLA por "contactos"
+				return true;
 			} catch (SQLiteConstraintException e) {
 				Log.d(TAG, "Fallo en la insercion: seguramente la clave ya existe.");
-				//return false;
 			}
 		}
 		db.close();   
+		return false;
 	}
 	
-	public void insertarContacto(SQLiteDatabase db, String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
+	public boolean insertarContacto(SQLiteDatabase db, String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
 
 		if (db != null) {
 			ContentValues valores = new ContentValues();
@@ -125,15 +126,16 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 			//db.insert("contactos", null, valores);
 			try {
 				db.insertOrThrow(TABLA, null, valores); //TABLA por "contactos"
+				return true;
 			} catch (SQLiteConstraintException e) {
 				Log.d(TAG, "Fallo en la insercion: seguramente la clave ya existe.");
-				//return false;
 			}
 		}   
+		return false;
 	}
 	
 	//Creo un insertarcontacto propio pasandole un contacto
-	public void insertarContacto(ContactoAgenda contacto){
+	public boolean insertarContacto(ContactoAgenda contacto){
 		SQLiteDatabase db = getWritableDatabase();
 		if (db != null) {
 			ContentValues valores = new ContentValues();
@@ -152,12 +154,13 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 			
 			try {
 		        db.insertOrThrow(TABLA, null, valores); //TABLA por "contactos"
+		        return true;
 		    } catch (SQLiteConstraintException e) {
 		    	Log.d(TAG, "Fallo en la insercion: seguramente la clave ya existe.");
-		        //return false;
 		    }   
 		}
 		db.close();   
+		return false;
 	}
 	
 	/*El mÃ©todo "update(table, values, whereClause, whereArgs)" para actualizar/modificar registros de nuestra tabla. 
@@ -167,44 +170,55 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 	 * los valores nuevos a insertar, en este caso no lo vamos a necesitar por lo tanto lo ponemos a null. 
 	 * Para terminar deberemos cerrar siempre nuestra base de datos con el mÃ©todo "close()".
 	*/
-	public void modificarContacto(String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
-	    SQLiteDatabase db = getWritableDatabase();
-	    ContentValues valores = new ContentValues();
-	    valores.put("nombre", nombre);
-	    valores.put("direccion", direccion);
-	    valores.put("telefono", telefono);
-	    valores.put("email", email);
-		valores.put("miembrofacebook", miembrofacebook);
-		valores.put("miembrotwitter", miembrotwitter);
-		valores.put("miembrogoogle", miembrogoogle);
-		valores.put("miembrolinkedin", miembrolinkedin);
-		valores.put("sexo", sexo);
-		valores.put("tipocontacto", tipocontacto);
-		valores.put("imagen", imagen);
-		db.update(TABLA, valores, "email=" + email, null);
-	    //db.update("contactos", valores, "_id=" + id, null);
-	    db.close();   
+	public boolean modificarContacto(String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
+		try {
+			SQLiteDatabase db = getWritableDatabase();
+		    ContentValues valores = new ContentValues();
+		    valores.put("nombre", nombre);
+		    valores.put("direccion", direccion);
+		    valores.put("telefono", telefono);
+		    valores.put("email", email);
+			valores.put("miembrofacebook", miembrofacebook);
+			valores.put("miembrotwitter", miembrotwitter);
+			valores.put("miembrogoogle", miembrogoogle);
+			valores.put("miembrolinkedin", miembrolinkedin);
+			valores.put("sexo", sexo);
+			valores.put("tipocontacto", tipocontacto);
+			valores.put("imagen", imagen);
+			db.update(TABLA, valores, "email=" + email, null);
+		    //db.update("contactos", valores, "_id=" + id, null);
+		    db.close();   
+		    return true;
+		} catch (Exception  e) {
+			Log.d(TAG, "Fallo en la modificación.");
+		}
+		return false;
 	}
 	
-	public void modificarContacto(ContactoAgenda contacto){
-		
-	    SQLiteDatabase db = getWritableDatabase();
-	    ContentValues valores = new ContentValues();
-	    valores.put("nombre", contacto.getNombre());
-	    valores.put("direccion", contacto.getDireccion());
-	    valores.put("telefono", contacto.getTelefono());
-	    valores.put("email", contacto.getMail());
-	    valores.put("miembrofacebook", contacto.isMiembroFacebook());
-		valores.put("miembrotwitter", contacto.isMiembroTwitter());
-		valores.put("miembrogoogle", contacto.isMiembroGoogle());
-		valores.put("miembrolinkedin", contacto.isMiembroLinnkedin());
-		valores.put("sexo", contacto.isSexo());
-		valores.put("tipocontacto", contacto.getTipoContacto());
-		valores.put("imagen", contacto.getDrawableImageId());
-		//	String mail="\""+contacto.getMail()+"\"";
-	    db.update(TABLA, valores, "email=" + contacto.getMail(), null);
-	    //db.update("contactos", valores, "_id=" + id, null); ---> db.update("contactos", valores, "_id=" + id, null);
-	    db.close();   
+	public boolean modificarContacto(ContactoAgenda contacto){
+		try {
+		    SQLiteDatabase db = getWritableDatabase();
+		    ContentValues valores = new ContentValues();
+		    valores.put("nombre", contacto.getNombre());
+		    valores.put("direccion", contacto.getDireccion());
+		    valores.put("telefono", contacto.getTelefono());
+		    valores.put("email", contacto.getMail());
+		    valores.put("miembrofacebook", contacto.isMiembroFacebook());
+			valores.put("miembrotwitter", contacto.isMiembroTwitter());
+			valores.put("miembrogoogle", contacto.isMiembroGoogle());
+			valores.put("miembrolinkedin", contacto.isMiembroLinnkedin());
+			valores.put("sexo", contacto.isSexo());
+			valores.put("tipocontacto", contacto.getTipoContacto());
+			valores.put("imagen", contacto.getDrawableImageId());
+			//	String mail="\""+contacto.getMail()+"\"";
+		    db.update(TABLA, valores, "email=" + contacto.getMail(), null);
+		    //db.update("contactos", valores, "_id=" + id, null); ---> db.update("contactos", valores, "_id=" + id, null);
+		    db.close();   
+		    return true;
+		} catch (Exception  e) {
+			Log.d(TAG, "Fallo en la modificación.");
+		}
+		return false;
 	}
 
 	/*
@@ -213,16 +227,30 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 	borrar.
 	*/
 	
-	public void borrarContacto(String email) {
-	    SQLiteDatabase db = getWritableDatabase();
-	    db.delete(TABLA, "email= '" + email+"'", null);
-	    db.close();  
+	public boolean borrarContacto(String email) 
+	{
+		try {
+		    SQLiteDatabase db = getWritableDatabase();
+		    db.delete(TABLA, "email= '" + email+"'", null);
+		    db.close();  
+		    return true;
+		} catch (Exception  e) {
+			Log.d(TAG, "Fallo en la modificación.");
+		}
+		return false;
 	}
 	
-	public void borrarContacto( ContactoAgenda contacto) {
-	    SQLiteDatabase db = getWritableDatabase();
-	    db.delete(TABLA, "email= '" + contacto.getMail()+"'", null);
-	    db.close();  
+	public boolean borrarContacto( ContactoAgenda contacto) 
+	{
+		try {
+		    SQLiteDatabase db = getWritableDatabase();
+		    db.delete(TABLA, "email= '" + contacto.getMail()+"'", null);
+		    db.close();  
+		    return true;
+		} catch (Exception  e) {
+			Log.d(TAG, "Fallo en la modificación.");
+		}
+		return false;
 	}
 	
 	/*Este mÃ©todo devuelve un objeto Contactos con los datos del contacto (id, nombre, telefono, email). En este caso como 
