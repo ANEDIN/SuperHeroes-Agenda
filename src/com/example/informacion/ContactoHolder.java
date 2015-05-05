@@ -11,6 +11,6 @@ import android.widget.TextView;
 	 */
 
 public class ContactoHolder {
-	public ImageView imgContacto;
-	public TextView tvNombre, tvMail;
-}
+		public ImageView imgContacto;
+		public TextView tvNombre, tvMail;
+	}
