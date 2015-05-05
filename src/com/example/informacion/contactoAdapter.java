@@ -18,12 +18,12 @@ import java.util.ArrayList;
  * @author Eduardo Gutierrez
  * 
  */
-public class contactoAdapter extends ArrayAdapter<contactoAgenda> {
+public class ContactoAdapter extends ArrayAdapter<ContactoAgenda> {
 	
 	
 
 		private Context context;
-		private ArrayList<contactoAgenda> datos;
+		private ArrayList<ContactoAgenda> datos;
 
 		/**
 		 * Constructor del Adapter.
@@ -34,7 +34,7 @@ public class contactoAdapter extends ArrayAdapter<contactoAgenda> {
 		 *            Datos que se pasan al ListView ( todo el array list). Holder son los datos a visualizar realmente de cada elementeo
 		 *            del array list. obtengo getview de cada elemento del array list.
 		 */
-		public contactoAdapter(Context context, ArrayList<contactoAgenda> datos) {
+		public ContactoAdapter(Context context, ArrayList<ContactoAgenda> datos) {
 			super(context, R.layout.listview_item, datos);
 			// Guardamos los par�metros en variables de clase.
 			this.context = context;
@@ -45,14 +45,14 @@ public class contactoAdapter extends ArrayAdapter<contactoAgenda> {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			
 			View item = convertView; //convertview es a la vista a la que convertimos en este caso en la definida en layout listview_item
-			contactoHolder holder;
+			ContactoHolder holder;
 
 			if (item == null) {
 				item = LayoutInflater.from(context).inflate(R.layout.listview_item,
 						null);
 				// Inicializamos el holder y guardamos las referencias a los
 				// controles.
-				holder = new contactoHolder();
+				holder = new ContactoHolder();
 				holder.imgContacto = (ImageView) item.findViewById(R.id.imagenContacto);
 				holder.tvMail = (TextView) item.findViewById(R.id.tvMail);
 				holder.tvNombre = (TextView) item.findViewById(R.id.tvNombre);
@@ -61,7 +61,7 @@ public class contactoAdapter extends ArrayAdapter<contactoAgenda> {
 				item.setTag(holder);
 			}
 			// Recuperamos el holder del Tag de la vista.
-			holder = (contactoHolder) item.getTag();
+			holder = (ContactoHolder) item.getTag();
 			
 			// A partir del holder, asignamos los valores que queramos a los
 			// controles.

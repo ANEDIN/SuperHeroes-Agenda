@@ -3,7 +3,7 @@ package com.example.informacion;
 import java.io.Serializable;
 
 
-public class contactoAgenda implements Serializable {
+public class ContactoAgenda implements Serializable {
 	
 	private String Nombre;
 	private String Direccion;
@@ -31,7 +31,7 @@ public class contactoAgenda implements Serializable {
 	 * @param tipoContacto tipo del contacto
 	 * @param drawableImageID foto del contacto
 	 */
-	public contactoAgenda(String nombre, String direccion, String telefono,
+	public ContactoAgenda(String nombre, String direccion, String telefono,
 			String mail, int miembroFacebook, int miembroTwitter,
 			int miembroGoogle, int miembroLinnkedin, int sexo,
 			String tipoContacto,int drawableImageId ) {
@@ -63,7 +63,7 @@ public class contactoAgenda implements Serializable {
 	/**
 	 * 
 	 */
-	public contactoAgenda() {
+	public ContactoAgenda() {
 		super();
 	}
 	/**
@@ -72,7 +72,7 @@ public class contactoAgenda implements Serializable {
 	 * @param telefono del contacto
 	 * @param mail del contacto
 	 */
-	public contactoAgenda(String nombre, String direccion, String telefono,
+	public ContactoAgenda(String nombre, String direccion, String telefono,
 			String mail) {
 		super();
 		Nombre = nombre;
