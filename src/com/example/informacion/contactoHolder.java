@@ -10,7 +10,7 @@ import android.widget.TextView;
 	 * @author Eduardo Gutierrez
 	 */
 
-public class ContactoHolder {
-	public ImageView imgContacto;
-	public TextView tvNombre, tvMail;
-}
+public class contactoHolder {
+		public ImageView imgContacto;
+		public TextView tvNombre, tvMail;
+	}
