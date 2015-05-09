@@ -66,31 +66,36 @@ public class Login extends Activity {
 		Toast.makeText(getApplicationContext(),"To DO: No necesario en el problema", Toast.LENGTH_LONG).show();
 	}
 	
+	public boolean validarUsuario(Usuario usuario)
+	{
+		//Validación de login y password lleno
+    	if ((usuario.getNombre().equals("")==false ) && (usuario.getContrasenya().equals("")==false)){
+    		return true;
+    	}
+    	//Validación del login vacio ( solo login)
+    	else if( (usuario.getNombre().equals("")) && ( usuario.getContrasenya().equals("") == false)) {
+    		Toast.makeText(getApplicationContext(),"Login vacio",Toast.LENGTH_SHORT).show();
+		}
+    	//Validación de password vacio ( solo password)
+    	else if((usuario.getNombre().equals("")==false ) && (usuario.getContrasenya().equals(""))) {
+    		Toast.makeText(getApplicationContext(), "Password vacio", Toast.LENGTH_SHORT).show();
+		}
+    	//Validación de ambos campos vacios
+    	else { //if (usuario.getNombre().equals("") && usuario.getContrasenya().equals("")) {
+	    	Toast.makeText(getApplicationContext(), "Login y Password vacios", Toast.LENGTH_SHORT).show();
+		}
+	    return false;
+	}
+	
 	/** Llamado cuando pulsamos el botón Login */
 	public void ClicLogin (View view){
 		
 		Integer resultado = 0;
 		usuarioaValidar.setNombre(entradaUsuario.getText().toString());
-		
 	    usuarioaValidar.setContrasenya(entradaPassword.getText().toString());
 	    
-	    //Validación de ambos campos vacios
-	    if ( usuarioaValidar.getNombre().equals("") && usuarioaValidar.getContrasenya().equals(""))
-    
-	    	Toast.makeText(getApplicationContext(), "Login y Password vacios", Toast.LENGTH_SHORT).show();
-
-    	//Validación del login vacio ( solo login)
-    	else if( (usuarioaValidar.getNombre().equals("")) && ( usuarioaValidar.getContrasenya().equals("") == false))
-    		Toast.makeText(getApplicationContext(),"Login vacio",Toast.LENGTH_SHORT).show();
-
-
-    	//Validación de password vacio ( solo password)
-    	else if((usuarioaValidar.getNombre().equals("")==false ) && (usuarioaValidar.getContrasenya().equals("")))
-    		Toast.makeText(getApplicationContext(), "Password vacio", Toast.LENGTH_SHORT).show();
-
-    	//Validación de login y password lleno
-    	else if ((usuarioaValidar.getNombre().equals("")==false ) && (usuarioaValidar.getContrasenya().equals("")==false)){
-    		//llamada a la tarea asincrona
+	    if (validarUsuario(usuarioaValidar)) {
+	    	//llamada a la tarea asincrona
     		try {
 				MiTarea tarea = new MiTarea();
 				tarea.execute(usuarioaValidar);
