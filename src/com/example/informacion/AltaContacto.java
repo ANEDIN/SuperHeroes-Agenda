@@ -188,7 +188,7 @@ public class AltaContacto extends Activity {
 		} else Toast.makeText(this,"Error en el alta", Toast.LENGTH_LONG).show();
 	}
 	
-	private boolean comprobarContacto(ContactoAgenda contactoActual) {
+	public boolean comprobarContacto(ContactoAgenda contactoActual) {
 		
 		Iterator<ContactoAgenda> itrContactos = AgendaGlobal.getInstance().miAgenda.iterator();
 		if (contactoActual.getMail().equals("")){
