@@ -5,8 +5,9 @@
 *.pydevproject
 .project
 .metadata
-bin/
-tmp/
+bin/*
+gen/*
+tmp/*
 *.tmp
 *.bak
 *.swp
@@ -216,3 +217,4 @@ pip-log.txt
 .mr.developer.cfg
 *.class
 gen/com/example/informacion/BuildConfig.java
+*.class
