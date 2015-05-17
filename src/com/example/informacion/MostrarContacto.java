@@ -1,16 +1,15 @@
 package com.example.informacion;
 
+import java.util.Arrays;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.Arrays;
 
 public class MostrarContacto extends Activity {
 	
@@ -24,8 +23,8 @@ public class MostrarContacto extends Activity {
 	private TextView edtxtTelefono;
 	
 	
-	private Button botonCancelar;
-	private Button botonAceptar;
+	//private Button botonCancelar;
+	//private Button botonAceptar;
 	
 	private ImageView imgContacto;
 	private Spinner tipocontacto;
