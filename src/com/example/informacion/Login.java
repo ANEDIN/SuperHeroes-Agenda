@@ -1,14 +1,9 @@
 package com.example.informacion;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-
-import com.example.informacion.R;
 
 import android.app.Activity;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,8 +11,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,16 +26,15 @@ public class Login extends Activity {
 	
 	private EditText entradaUsuario;
 	private EditText entradaPassword;
-	private Button botonLogin;
-	private TextView Mensaje;
-	private TextView cuentaNueva;
 	private Usuario usuarioaValidar;
 	
 	private NotificationCompat.Builder notification;
-	private PendingIntent pIntent;
 	private NotificationManager manager;
-	private Intent resultIntent;
-	private TaskStackBuilder stackBuilder;
+
+	private int RESULT_NONE = 0;
+	private int RESULT_OK = 1;
+	private int PASSWORD_FAIL = 2;
+	private int NEW_USER = 3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +43,6 @@ public class Login extends Activity {
 		
 		entradaUsuario = (EditText) findViewById(R.id.TxtUsuario);
         entradaPassword = (EditText) findViewById(R.id.TxtPassword);
-        botonLogin = (Button) findViewById(R.id.BtnEntrar);
-        Mensaje = (TextView) findViewById(R.id.LblMensaje);
-        cuentaNueva = (TextView) findViewById(R.id.TextCuenta);
         
         entradaUsuario.setText("");
         entradaPassword.setText("");
@@ -90,7 +79,7 @@ public class Login extends Activity {
 	/** Llamado cuando pulsamos el botón Login */
 	public void ClicLogin (View view){
 		
-		Integer resultado = 0;
+		Integer resultado = RESULT_NONE;
 		usuarioaValidar.setNombre(entradaUsuario.getText().toString());
 	    usuarioaValidar.setContrasenya(entradaPassword.getText().toString());
 	    
@@ -99,24 +88,22 @@ public class Login extends Activity {
     		try {
 				MiTarea tarea = new MiTarea();
 				tarea.execute(usuarioaValidar);
-				resultado= tarea.get(); // obtengo resultado de la tara no deberia ir pero bueno...asi pierde lo de asincroa
-				if(resultado==1){
+				resultado = tarea.get(); // obtengo resultado de la tara no deberia ir pero bueno...asi pierde lo de asincroa
+				if(resultado == RESULT_OK){
 					// Contraseña y nombre usuario correcto. Pasamos actividad principal.Toast.makeText(getApplicationContext(), "Usuario" + usuarioaValidar.getNombre() + " con Contraeña\n"+ usuarioaValidar.getContraseña() + "correctos", Toast.LENGTH_SHORT).show();
 					//Toast.makeText(getApplicationContext(), "Adelante", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(this, MainActivity.class);
 					startActivity(intent);
-				} else if (resultado==2)
+				} else if (resultado == PASSWORD_FAIL)
 					Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
-				else if( resultado ==3){
+				else if( resultado == NEW_USER){
 					//No haces nada porque das de alta un usuario nuevo y ya lo notificas en la tarea
 					// Dejo por si mas adelante hay que hacer alguna cosa mas.
 				}
 		
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
@@ -131,72 +118,72 @@ public class Login extends Activity {
 	
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
-		super.onPreExecute();
-		mProgress= new ProgressDialog(Login.this);
-	    mProgress.setMessage("Verificando usuario...Por favor espere");
-	    mProgress.show();
-	   // mProgress.setMessage ("Tarea comenzada");
+
+			super.onPreExecute();
+			mProgress= new ProgressDialog(Login.this);
+		    mProgress.setMessage("Verificando usuario...Por favor espere");
+		    mProgress.show();
+		   // mProgress.setMessage ("Tarea comenzada");
 		    
 		}
 	    
 	    @Override
 	    protected Integer doInBackground(Usuario...usuarioaValidar) {
 	    	
-	    //   	Usuario actual;
-		Integer resultado=0;
-		
-		SharedPreferences usuario = getSharedPreferences(PREFS_NAME, 0);    
-		
-		actual= new Usuario();
-		
-		try 
-		{	
-			Thread.sleep(1000);
+		    //   	Usuario actual;
+			Integer resultado = RESULT_NONE;
 			
-			String nombre=usuarioaValidar[0].getNombre();
-			actual.setNombre(StringEncriptacion.getStringMessageDigest(nombre,AlgoritmoEncriptacion));
+			SharedPreferences usuario = getSharedPreferences(PREFS_NAME, 0);    
 			
-			String contrasenya=usuarioaValidar[0].getContrasenya();
-			actual.setContrasenya(StringEncriptacion.getStringMessageDigest(contrasenya,AlgoritmoEncriptacion));
-			//Como primer parámetro "key" indicaremos la clave/palabra que queremos recuperar. Y como segundo parámetro "defValue" indicaremos un valor 
-			//por defecto a devolver en caso de que el dato que queremos recuperar no exista. 
-			String silent = usuario.getString(actual.getNombre(),"");
+			actual= new Usuario();
 			
-			if (!(silent.equals("")))//UsuariosGlobal.getInstance().misUsuarios.containsKey(actual.getNombre())
-			{
-				//El Hashmap contiene la clave ( usuario existe)
+			try 
+			{	
+				Thread.sleep(1000);
 				
-			     if(actual.getContrasenya().equals(silent) )   //actual.getContraseña().equals(UsuariosGlobal.getInstance().misUsuarios.get(actual.getNombre()).getContraseña())
-			     {
-			    	 //El usuario existe y la contraseña coincide. Nombre correcto y contraseña correcta.
-			    	 return 1;
-			     } else {
-			    	 //La contraseña no coincide. Nombre correcto y contraseña incorrecta
-			    	 return 2;
-			     }
-			} else {
-				//El usuario no existe, por lo que se crea un usuario nuevo.
-			 	notification = new NotificationCompat.Builder(Login.this);
-	           //Title for Notification
-	           notification.setContentTitle("Login actualización");
-	           //Message in the Notification
-	           notification.setContentText("Alta del usuario " + nombre +  " se ha producido correctamente!");
-	           //Alert shown when Notification is received
-	           notification.setTicker("Nueva notificación Android:");
-	           //Icon to be set on Notification
-	           notification.setSmallIcon(R.drawable.info_icon);
-	          
-	           manager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-	           manager.notify(0, notification.build());
-	           
-	           SharedPreferences.Editor editor = usuario.edit();
-	           editor.putString(actual.getNombre(), actual.getContrasenya());
-	
-	           // Commit the edits!
-	           editor.commit();
-	           //  UsuariosGlobal.getInstance().misUsuarios.put(actual.getNombre(),actual);
-		           return 3;
+				String nombre=usuarioaValidar[0].getNombre();
+				actual.setNombre(StringEncriptacion.getStringMessageDigest(nombre,AlgoritmoEncriptacion));
+				
+				String contrasenya=usuarioaValidar[0].getContrasenya();
+				actual.setContrasenya(StringEncriptacion.getStringMessageDigest(contrasenya,AlgoritmoEncriptacion));
+				//Como primer parámetro "key" indicaremos la clave/palabra que queremos recuperar. Y como segundo parámetro "defValue" indicaremos un valor 
+				//por defecto a devolver en caso de que el dato que queremos recuperar no exista. 
+				String silent = usuario.getString(actual.getNombre(),"");
+				
+				if (!(silent.equals("")))//UsuariosGlobal.getInstance().misUsuarios.containsKey(actual.getNombre())
+				{
+					//El Hashmap contiene la clave ( usuario existe)
+					
+				     if(actual.getContrasenya().equals(silent) )   //actual.getContraseña().equals(UsuariosGlobal.getInstance().misUsuarios.get(actual.getNombre()).getContraseña())
+				     {
+				    	 //El usuario existe y la contraseña coincide. Nombre correcto y contraseña correcta.
+				    	 return RESULT_OK;
+				     } else {
+				    	 //La contraseña no coincide. Nombre correcto y contraseña incorrecta
+				    	 return PASSWORD_FAIL;
+				     }
+				} else {
+					//El usuario no existe, por lo que se crea un usuario nuevo.
+				 	notification = new NotificationCompat.Builder(Login.this);
+		           //Title for Notification
+		           notification.setContentTitle("Login actualización");
+		           //Message in the Notification
+		           notification.setContentText("Alta del usuario " + nombre +  " se ha producido correctamente!");
+		           //Alert shown when Notification is received
+		           notification.setTicker("Nueva notificación Android:");
+		           //Icon to be set on Notification
+		           notification.setSmallIcon(R.drawable.info_icon);
+		          
+		           manager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		           manager.notify(0, notification.build());
+		           
+		           SharedPreferences.Editor editor = usuario.edit();
+		           editor.putString(actual.getNombre(), actual.getContrasenya());
+		
+		           // Commit the edits!
+		           editor.commit();
+		           //  UsuariosGlobal.getInstance().misUsuarios.put(actual.getNombre(),actual);
+		           return NEW_USER;
 				}
 	        } catch (Exception e) {
 	        	e.printStackTrace();
