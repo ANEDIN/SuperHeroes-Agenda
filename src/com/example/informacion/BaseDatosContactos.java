@@ -51,27 +51,25 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
 		db.execSQL(CREAR_TABLA); //db.execSQL(TABLA_CONTACTOS);
-		//addContacto(new contactoAgenda("Belen", "c/ Diego Madrazo","1", "belen@gmail.com",true, true, false, false, false,"Familia", R.drawable.hulk));
+		insertarDatosPrueba(db);
+	}
+	
+	private void insertarDatosPrueba(SQLiteDatabase db)
+	{
 		//Inicializo la base de datos con algun contacto
-		
 		insertarContacto(db,"Belen", "c/ Diego Madrazo","1", "belen@gmail.com",1, 1, 0, 0, 0,"Familia", R.drawable.hulk);
 		insertarContacto(db, "Daniel", "c/ Diego Madrazo","2", "daniel@gmail.com",0, 0, 0, 0, 1,"Laboral", R.drawable.spidey);
 		insertarContacto(db, "Eduardo", "c/ Segovia","973269128", "eduardo@gmail.com",0, 0, 0, 1, 1,"Amigo", R.drawable.ironman);
 		insertarContacto(db,"Asuncion", "c/ Paseo de Ronda","92458", "mama@msn.com",1, 1, 1, 0, 0,"Laboral", R.drawable.thor);
-		
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-		// db.execSQL("DROP TABLE IF EXISTS " + TABLA_CONTACTOS);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLA);
 		onCreate(db);
-		//	insertarContacto("Belen", "c/ Diego Madrazo","1", "belen@gmail.com",1, 1, 0, 0, 0,"Familia", R.drawable.hulk);
-
 	}
+	
 	/*
 	Creamos un método "insertarCONTACTO" y como parámetros los datos que queremos insertar en la tabla (id, nombre, telefono, email ....). 
 	Dentro del método creamos una instancia de la clase "SQLiteDatabase" y usamos su método "getWritableDatabase()" para poder 

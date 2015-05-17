@@ -5,13 +5,11 @@ import android.content.Context;
 public class BaseDatosGlobal {
 
 	public BaseDatosContactos agendaBaseDatos;
-	private Context mCon;
 
 	private BaseDatosGlobal() {
 	}
 	
-	private BaseDatosGlobal(Context con) { 
-		this.mCon=con;
+	private BaseDatosGlobal(Context con) {
 	    agendaBaseDatos = new BaseDatosContactos(con);
 	}
 	
