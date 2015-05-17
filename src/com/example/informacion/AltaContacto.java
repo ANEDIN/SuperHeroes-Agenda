@@ -39,10 +39,7 @@ public class AltaContacto extends Activity {
 	private RadioButton sexo;
 
 	private NotificationCompat.Builder notification;
-	private PendingIntent pIntent;
 	private NotificationManager manager;
-	private Intent resultIntent;
-	private TaskStackBuilder stackBuilder;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,41 +87,31 @@ public class AltaContacto extends Activity {
 	
 	public void onCheckboxClicked(View view) {
 	    // Is the view now checked?
-	    boolean checked = ((CheckBox) view).isChecked();
+	    int checked = 0;
+	    if(((CheckBox) view).isChecked())
+	    {
+	    	checked = 1;
+	    } 
 	    
 	    // Check which checkbox was clicked
 	    switch(view.getId()) {
 	        case R.id.facebook:
-	            if (checked) {
-	                contactoActual.setMiembroFacebook(1);
+	        	contactoActual.setMiembroFacebook(checked);
+	            if (checked == 1) { 
 	            	Toast.makeText(this,"Eres miembro de Facebook", Toast.LENGTH_LONG).show();
 	            } else {
-	                contactoActual.setMiembroFacebook(0);
 	            	Toast.makeText(this,"Ya no eres miembro de Facebook", Toast.LENGTH_LONG).show();
 	            }
 	            break;
 	        case R.id.google:
-	            if (checked){
-	                contactoActual.setMiembroGoogle(1);
-	            	
-	            } else {
-	            	contactoActual.setMiembroGoogle(0);// I'm lactose intolerant
-	            	
-	            }
+	        	contactoActual.setMiembroGoogle(checked);
 	            break;
 	        case R.id.linkedin:
-	            if (checked)
-	            	contactoActual.setMiembroLinnkedin(1);
-	            else
-	            	contactoActual.setMiembroLinnkedin(0);// Remove the meat
+	            contactoActual.setMiembroLinnkedin(checked);
 	            break;
 	        case R.id.twitter:
-	            if (checked)
-	            	contactoActual.setMiembroTwitter(1);
-	            else
-	            	contactoActual.setMiembroTwitter(0);
+	            contactoActual.setMiembroTwitter(checked);
 	            break;
-	        // TODO: Veggie sandwich
 	    }
 	}
 	
@@ -147,29 +134,14 @@ public class AltaContacto extends Activity {
 	
 	public void OnClickAceptar(View view){
 
-		contactoActual.setNombre(edtxtNombre.getText().toString());
-		contactoActual.setMail(edtxtMail.getText().toString());
-		contactoActual.setDireccion(edtxtDireccion.getText().toString());
-		contactoActual.setTelefono(edtxtTelefono.getText().toString());
-		
-		contactoActual.setTipoContacto(tipoContacto.getSelectedItem().toString());
-		
-		if (sexo.isChecked()) contactoActual.setSexo(1);
+		obtenerDatos();
 		
 		if (comprobarContacto(contactoActual)) {
 			BaseDatosGlobal.getInstance(AltaContacto.this).agendaBaseDatos.insertarContacto(contactoActual);//mail
 			//insertarContacto( BaseDatosGlobal.getInstance(AltaContacto.this).agendaBaseDatos,contactoActual);//mail
 
 			AgendaGlobal.getInstance().miAgenda.add(contactoActual);
-			notification = new NotificationCompat.Builder(AltaContacto.this);
-			//Title for Notification
-			notification.setContentTitle("Interfaces actualización");
-			//Message in the Notification
-			notification.setContentText("Alta del contacto " + contactoActual.getNombre()+  " correcta!");
-			//Alert shown when Notification is received
-			notification.setTicker("Nueva notificación Android:");
-			//Icon to be set on Notification
-			notification.setSmallIcon(R.drawable.ironman);
+			crearNotificacion();
 							           
 			//PARTTE DE TOCAR NOTIFICACION TE ENVIA A UNA ACTIVIDAD: 
 			//Creating new Stack Builder
@@ -186,6 +158,29 @@ public class AltaContacto extends Activity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 		} else Toast.makeText(this,"Error en el alta", Toast.LENGTH_LONG).show();
+	}
+	
+	private void obtenerDatos()
+	{
+		contactoActual.setNombre(edtxtNombre.getText().toString());
+		contactoActual.setMail(edtxtMail.getText().toString());
+		contactoActual.setDireccion(edtxtDireccion.getText().toString());
+		contactoActual.setTelefono(edtxtTelefono.getText().toString());
+		contactoActual.setTipoContacto(tipoContacto.getSelectedItem().toString());
+		if (sexo.isChecked()) contactoActual.setSexo(1);
+	}
+	
+	private void crearNotificacion()
+	{
+		notification = new NotificationCompat.Builder(AltaContacto.this);
+		//Title for Notification
+		notification.setContentTitle("Interfaces actualización");
+		//Message in the Notification
+		notification.setContentText("Alta del contacto " + contactoActual.getNombre()+  " correcta!");
+		//Alert shown when Notification is received
+		notification.setTicker("Nueva notificación Android:");
+		//Icon to be set on Notification
+		notification.setSmallIcon(R.drawable.ironman);
 	}
 	
 	public boolean comprobarContacto(ContactoAgenda contactoActual) {

@@ -14,10 +14,10 @@ public class AcercaDe extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_acerca_de);
-		Uri video = Uri.parse("android.resource://com.pac.myapp/raw/master");
-		intro= (VideoView) findViewById(R.id.videoView1);
-		Uri url = Uri.parse("android.resource://com.example.informacion/" + R.raw.lego);
-		intro.setVideoURI(url);
+		
+		intro = (VideoView) findViewById(R.id.videoView1);
+
+		intro.setVideoURI(Uri.parse("android.resource://com.example.informacion/" + R.raw.lego));
 		intro.requestFocus();
 		intro.start();
 
