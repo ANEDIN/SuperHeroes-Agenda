@@ -72,7 +72,6 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 
 		Intent intent;
 		
-		int id = item.getItemId();
 		switch (item.getItemId()) {
 			case (R.id.btAnadirContacto):
 				Toast.makeText(getApplicationContext(), "Has pulasado añadir Contacto", Toast.LENGTH_SHORT).show();
@@ -121,7 +120,6 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 	
 	   AlertDialog alert=builder.create();
 	   alert.show();
-		// TODO Auto-generated method stub
 		
 	}
 	*/
@@ -141,10 +139,6 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View view, int position,
 			long Id) {
-		// Al hacer click sobre uno de los items del ListView mostramos los
-		// datos en los TextView.
-		//tvNombre.setText(AgendaGlobal.getInstance().miAgenda.get(position).getNombre());
-		//tvNumCelda.setText(String.valueOf(position));
 	}
 	
 	@Override
@@ -190,7 +184,6 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 
 
 	private void EliminarContacto(int posicionActual) {
-		// TODO Auto-generated method stub
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		
 	     builder.setMessage("¿Confirma eliminar el contacto elegido ?" +" "+ AgendaGlobal.getInstance().miAgenda.get(PosicionActual).getNombre())
@@ -222,7 +215,6 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 
 
 	public void onAcabeInicializacion() {
-		//
 		Toast.makeText(this,"The result is ", Toast.LENGTH_LONG).show();
 	}
 
@@ -230,7 +222,6 @@ public class MainActivity extends Activity implements OnItemClickListener, OnIte
 	/*
 	@Override
 	public void onAcabeInicializacion(Integer result) {
-		// TODO Auto-generated method stub
 	
 		Toast.makeText(this,"Numero total de contactos es: "+ AgendaGlobal.getInstance().miAgenda.size(), Toast.LENGTH_LONG).show();
 		
