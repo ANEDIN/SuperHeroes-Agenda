@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.VideoView;
 
-//hola prueba
+//hola prueba indira
 
 public class AcercaDe extends Activity {
 
