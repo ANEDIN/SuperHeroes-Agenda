@@ -106,31 +106,7 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 		return false;
 	}*/
 	
-	/*public boolean insertarContacto(SQLiteDatabase db, String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
-
-		if (db != null) {
-			ContentValues valores = new ContentValues();
-			valores.put("nombre", nombre);
-			valores.put("direccion", direccion);
-			valores.put("telefono", telefono);
-			valores.put("email", email);
-			valores.put("miembrofacebook", miembrofacebook);
-			valores.put("miembrotwitter", miembrotwitter);
-			valores.put("miembrogoogle", miembrogoogle);
-			valores.put("miembrolinkedin", miembrolinkedin);
-			valores.put("sexo", sexo);
-			valores.put("tipocontacto", tipocontacto);
-			valores.put("imagen", imagen);
-			//db.insert("contactos", null, valores);
-			try {
-				db.insertOrThrow(TABLA, null, valores); //TABLA por "contactos"
-				return true;
-			} catch (SQLiteConstraintException e) {
-				Log.d(TAG, "Fallo en la insercion: seguramente la clave ya existe.");
-			}
-		}   
-		return false;
-	}*/
+	
 	
 	//Creo un insertarcontacto propio pasandole un contacto
 	public boolean insertarContacto(ContactoAgenda contacto){
@@ -173,19 +149,7 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 	 * los valores nuevos a insertar, en este caso no lo vamos a necesitar por lo tanto lo ponemos a null. 
 	 * Para terminar deberemos cerrar siempre nuestra base de datos con el mÃ©todo "close()".
 	*/
-	/*public boolean modificarContacto(String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
-		try {
-			SQLiteDatabase db = getWritableDatabase();
-			ContentValues valores = insertarValores(contacto);
-			db.update(TABLA, valores, "email=" + email, null);
-		    //db.update("contactos", valores, "_id=" + id, null);
-		    db.close();   
-		    return true;
-		} catch (Exception  e) {
-			Log.d(TAG, "Fallo en la modificación.");
-		}
-		return false;
-	}*/
+
 	
 	public boolean modificarContacto(ContactoAgenda contacto){
 		try {
