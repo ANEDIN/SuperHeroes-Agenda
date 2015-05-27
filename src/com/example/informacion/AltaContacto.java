@@ -47,6 +47,11 @@ public class AltaContacto extends Activity {
 		contactoActual = new ContactoAgenda();
 		contactoActual.setDrawableImageId(R.drawable.info_icon); // Ponemos una imagen por defecto
 		
+		inicializarVariablesGlobales();
+		
+	}
+
+	private void inicializarVariablesGlobales() {
 		edtxtNombre = (EditText) findViewById(R.id.nombre);
 		edtxtDireccion = (EditText) findViewById(R.id.direccion);
 		edtxtMail= (EditText) findViewById(R.id.mail);
@@ -61,7 +66,6 @@ public class AltaContacto extends Activity {
 	    imgContacto.setImageResource(R.drawable.addcontacts);
 	    registerForContextMenu(imgContacto);
 	    sexo.setChecked(true);
-		
 	}
 
 	@Override
@@ -132,7 +136,7 @@ public class AltaContacto extends Activity {
 	
 	public void OnClickAceptar(View view){
 
-		obtenerDatos();
+		escribirDatos();
 		
 		if (comprobarContacto(contactoActual)) {
 			BaseDatosGlobal.getInstance(AltaContacto.this).agendaBaseDatos.insertarContacto(contactoActual);//mail
@@ -158,7 +162,7 @@ public class AltaContacto extends Activity {
 		} else Toast.makeText(this,"Error en el alta", Toast.LENGTH_LONG).show();
 	}
 	
-	private void obtenerDatos()
+	private void escribirDatos()
 	{
 		contactoActual.setNombre(edtxtNombre.getText().toString());
 		contactoActual.setMail(edtxtMail.getText().toString());

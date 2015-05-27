@@ -79,7 +79,7 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 	y como segundo parámetro el valor que queremos almacenar. Una vez almacenamos los datos insertamos una fila en la 
 	tabla usamos el método "insert(table, nullColumnHack, values)" 
 */	
-	public boolean insertarContacto(String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
+/*	public boolean insertarContacto(String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
 		SQLiteDatabase db = getWritableDatabase();
 		if (db != null) {
 			ContentValues valores = new ContentValues();
@@ -104,9 +104,9 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 		}
 		db.close();   
 		return false;
-	}
+	}*/
 	
-	public boolean insertarContacto(SQLiteDatabase db, String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
+	/*public boolean insertarContacto(SQLiteDatabase db, String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
 
 		if (db != null) {
 			ContentValues valores = new ContentValues();
@@ -130,24 +130,13 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 			}
 		}   
 		return false;
-	}
+	}*/
 	
 	//Creo un insertarcontacto propio pasandole un contacto
 	public boolean insertarContacto(ContactoAgenda contacto){
 		SQLiteDatabase db = getWritableDatabase();
 		if (db != null) {
-			ContentValues valores = new ContentValues();
-			valores.put("nombre", contacto.getNombre());
-			valores.put("direccion", contacto.getDireccion());
-			valores.put("telefono", contacto.getTelefono());
-			valores.put("email", contacto.getMail());
-			valores.put("miembrofacebook", contacto.isMiembroFacebook());
-			valores.put("miembrotwitter", contacto.isMiembroTwitter());
-			valores.put("miembrogoogle", contacto.isMiembroGoogle());
-			valores.put("miembrolinkedin", contacto.isMiembroLinnkedin());
-			valores.put("sexo", contacto.isSexo());
-			valores.put("tipocontacto", contacto.getTipoContacto());
-			valores.put("imagen", contacto.getDrawableImageId());
+			ContentValues valores = insertarValores(contacto);
 			//db.insert("contactos", null, valores);
 			
 			try {
@@ -160,6 +149,22 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 		db.close();   
 		return false;
 	}
+
+	private ContentValues insertarValores(ContactoAgenda contacto) {
+		ContentValues valores = new ContentValues();
+		valores.put("nombre", contacto.getNombre());
+		valores.put("direccion", contacto.getDireccion());
+		valores.put("telefono", contacto.getTelefono());
+		valores.put("email", contacto.getMail());
+		valores.put("miembrofacebook", contacto.isMiembroFacebook());
+		valores.put("miembrotwitter", contacto.isMiembroTwitter());
+		valores.put("miembrogoogle", contacto.isMiembroGoogle());
+		valores.put("miembrolinkedin", contacto.isMiembroLinnkedin());
+		valores.put("sexo", contacto.isSexo());
+		valores.put("tipocontacto", contacto.getTipoContacto());
+		valores.put("imagen", contacto.getDrawableImageId());
+		return valores;
+	}
 	
 	/*El método "update(table, values, whereClause, whereArgs)" para actualizar/modificar registros de nuestra tabla. 
 	 * Este método nos pide el nombre de la tabla "table", los valores a modificar/actualizar "values" (ContentValues), 
@@ -168,21 +173,10 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 	 * los valores nuevos a insertar, en este caso no lo vamos a necesitar por lo tanto lo ponemos a null. 
 	 * Para terminar deberemos cerrar siempre nuestra base de datos con el método "close()".
 	*/
-	public boolean modificarContacto(String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
+	/*public boolean modificarContacto(String nombre, String direccion, String telefono, String email,int miembrofacebook, int miembrotwitter, int miembrogoogle, int miembrolinkedin, int sexo, String tipocontacto, int imagen){
 		try {
 			SQLiteDatabase db = getWritableDatabase();
-		    ContentValues valores = new ContentValues();
-		    valores.put("nombre", nombre);
-		    valores.put("direccion", direccion);
-		    valores.put("telefono", telefono);
-		    valores.put("email", email);
-			valores.put("miembrofacebook", miembrofacebook);
-			valores.put("miembrotwitter", miembrotwitter);
-			valores.put("miembrogoogle", miembrogoogle);
-			valores.put("miembrolinkedin", miembrolinkedin);
-			valores.put("sexo", sexo);
-			valores.put("tipocontacto", tipocontacto);
-			valores.put("imagen", imagen);
+			ContentValues valores = insertarValores(contacto);
 			db.update(TABLA, valores, "email=" + email, null);
 		    //db.update("contactos", valores, "_id=" + id, null);
 		    db.close();   
@@ -191,24 +185,12 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 			Log.d(TAG, "Fallo en la modificaci�n.");
 		}
 		return false;
-	}
+	}*/
 	
 	public boolean modificarContacto(ContactoAgenda contacto){
 		try {
 		    SQLiteDatabase db = getWritableDatabase();
-		    ContentValues valores = new ContentValues();
-		    valores.put("nombre", contacto.getNombre());
-		    valores.put("direccion", contacto.getDireccion());
-		    valores.put("telefono", contacto.getTelefono());
-		    valores.put("email", contacto.getMail());
-		    valores.put("miembrofacebook", contacto.isMiembroFacebook());
-			valores.put("miembrotwitter", contacto.isMiembroTwitter());
-			valores.put("miembrogoogle", contacto.isMiembroGoogle());
-			valores.put("miembrolinkedin", contacto.isMiembroLinnkedin());
-			valores.put("sexo", contacto.isSexo());
-			valores.put("tipocontacto", contacto.getTipoContacto());
-			valores.put("imagen", contacto.getDrawableImageId());
-			//	String mail="\""+contacto.getMail()+"\"";
+		    ContentValues valores = insertarValores(contacto);
 		    db.update(TABLA, valores, "email=" + contacto.getMail(), null);
 		    //db.update("contactos", valores, "_id=" + id, null); ---> db.update("contactos", valores, "_id=" + id, null);
 		    db.close();   

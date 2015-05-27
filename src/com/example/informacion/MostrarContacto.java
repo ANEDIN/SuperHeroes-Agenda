@@ -59,16 +59,21 @@ public class MostrarContacto extends Activity {
 		sexo = (RadioGroup) findViewById(R.id.grupo);
 		
 		//This is GetExtra 
-		Intent intent = getIntent();
-		Bundle extras= intent.getExtras();
-		if (extras != null) {
-			Mail = extras.getString(EXTRA_MAIL);
-			posicion =extras.getInt(EXTRA_POSITION);
-		}
+		posicion = obtenerExtras(posicion);
 		
 		
 	//	Toast.makeText(getApplicationContext(), "Hemos recibido a"+ posicion + Mail, Toast.LENGTH_SHORT).show();
 			
+		rellenarFormularioContacto(posicion);
+		
+		
+		String[] arraytipocontactos = getResources().getStringArray(R.array.tipoContacto_array);
+		tipocontacto.setSelection(Arrays.asList(arraytipocontactos).indexOf(AgendaGlobal.getInstance().miAgenda.get(posicion).getTipoContacto()));
+	//	tipocontacto.setSelection(((ArrayAdapter<String>)tipocontacto.getAdapter()).getPosition("Familia");
+		if (AgendaGlobal.getInstance().miAgenda.get(posicion).isSexo() == 1) sexo.check(R.id.hombre);
+		else sexo.check(R.id.mujer);
+	}
+	private void rellenarFormularioContacto(int posicion) {
 		if ( AgendaGlobal.getInstance().miAgenda.get(posicion).getNombre().equals("") ) edtxtNombre.setText("Nombre no entrado");
 		else edtxtNombre.setText(AgendaGlobal.getInstance().miAgenda.get(posicion).getNombre());
 		
@@ -94,13 +99,16 @@ public class MostrarContacto extends Activity {
 		
 		if (AgendaGlobal.getInstance().miAgenda.get(posicion).isMiembroGoogle() ==1 )  chkGoogle.setChecked(true);
 		else chkGoogle.setChecked(false);
-		
-		
-		String[] arraytipocontactos = getResources().getStringArray(R.array.tipoContacto_array);
-		tipocontacto.setSelection(Arrays.asList(arraytipocontactos).indexOf(AgendaGlobal.getInstance().miAgenda.get(posicion).getTipoContacto()));
-	//	tipocontacto.setSelection(((ArrayAdapter<String>)tipocontacto.getAdapter()).getPosition("Familia");
-		if (AgendaGlobal.getInstance().miAgenda.get(posicion).isSexo() == 1) sexo.check(R.id.hombre);
-		else sexo.check(R.id.mujer);
+	}
+	private int obtenerExtras(int posicion) {
+		String Mail;
+		Intent intent = getIntent();
+		Bundle extras= intent.getExtras();
+		if (extras != null) {
+			Mail = extras.getString(EXTRA_MAIL);
+			posicion =extras.getInt(EXTRA_POSITION);
+		}
+		return posicion;
 	}
 
 }
