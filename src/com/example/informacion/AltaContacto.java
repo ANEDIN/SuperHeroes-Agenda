@@ -1,7 +1,5 @@
 package com.example.informacion;
 
-import java.util.Iterator;
-
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -38,6 +36,7 @@ public class AltaContacto extends Activity {
 
 	private NotificationCompat.Builder notification;
 	private NotificationManager manager;
+	private ContactoHandler contactoHandler;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,8 @@ public class AltaContacto extends Activity {
 		
 		contactoActual = new ContactoAgenda();
 		contactoActual.setDrawableImageId(R.drawable.info_icon); // Ponemos una imagen por defecto
+		
+		contactoHandler = new ContactoHandler();
 		
 		inicializarVariablesGlobales();
 		
@@ -137,28 +138,23 @@ public class AltaContacto extends Activity {
 	public void OnClickAceptar(View view){
 
 		escribirDatos();
-		
-		if (comprobarContacto(contactoActual)) {
-			BaseDatosGlobal.getInstance(AltaContacto.this).agendaBaseDatos.insertarContacto(contactoActual);//mail
-			//insertarContacto( BaseDatosGlobal.getInstance(AltaContacto.this).agendaBaseDatos,contactoActual);//mail
-
-			AgendaGlobal.getInstance().miAgenda.add(contactoActual);
+		int result = contactoHandler.comprobarContacto(contactoActual);
+		if (result == contactoHandler.OK) {
 			crearNotificacion();
-							           
-			//PARTTE DE TOCAR NOTIFICACION TE ENVIA A UNA ACTIVIDAD: 
-			//Creating new Stack Builder
-							           
-			/*    stackBuilder = TaskStackBuilder.create(AltaContacto.this);
-           	stackBuilder.addParentStack(MainActivity.class);
-           	//Intent which is opened when notification is clicked
-           	resultIntent = new Intent(AltaContacto.this, MainActivity.class);
-           	stackBuilder.addNextIntent(resultIntent);
-           	pIntent =  stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-            notification.setContentIntent(pIntent);*/
             manager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             manager.notify(0, notification.build());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+  
+		} else if(result == contactoHandler.NO_MAIL){
+			Toast.makeText(this,"Error en el alta, debe haber mail", Toast.LENGTH_LONG).show();
+			
+		} else if(result == contactoHandler.NO_NOMBRE){
+			Toast.makeText(this,"Error en el alta, debe haber nombre", Toast.LENGTH_LONG).show();
+			
+		} else if(result == contactoHandler.MAIL_ERROR){
+			Toast.makeText(this,"El mail esta dado de alta", Toast.LENGTH_LONG).show();
+			
 		} else Toast.makeText(this,"Error en el alta", Toast.LENGTH_LONG).show();
 	}
 	
@@ -183,32 +179,18 @@ public class AltaContacto extends Activity {
 		notification.setTicker("Nueva notificación Android:");
 		//Icon to be set on Notification
 		notification.setSmallIcon(R.drawable.ironman);
+		
+		//PARTTE DE TOCAR NOTIFICACION TE ENVIA A UNA ACTIVIDAD: 
+		//Creating new Stack Builder
+					           
+		/*    stackBuilder = TaskStackBuilder.create(AltaContacto.this);
+		stackBuilder.addParentStack(MainActivity.class);
+		//Intent which is opened when notification is clicked
+		resultIntent = new Intent(AltaContacto.this, MainActivity.class);
+		stackBuilder.addNextIntent(resultIntent);
+		pIntent =  stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+		notification.setContentIntent(pIntent);*/
 	}
-	
-	public boolean comprobarContacto(ContactoAgenda contactoActual) {
-		
-		Iterator<ContactoAgenda> itrContactos = AgendaGlobal.getInstance().miAgenda.iterator();
-		if (contactoActual.getMail().equals("")){
-		 	Toast.makeText(this,"Error en el alta, debe haber mail", Toast.LENGTH_LONG).show();
-		 	return false;
-		}
-		
-		if (contactoActual.getNombre().equals("")){
-		 	Toast.makeText(this,"Error en el alta, debe haber nombre", Toast.LENGTH_LONG).show();
-		 	return false;
-		}
-		
-		while(itrContactos.hasNext()){
-			ContactoAgenda contacto = itrContactos.next();
-			if (contactoActual.getMail().equals(contacto.getMail())){
-				Toast.makeText(this,"El mail esta dado de alta", Toast.LENGTH_LONG).show();
-				return false;
-			}
-		}		
-	
-		return true;
-	}
-
 
 
 	public void OnClickCancelar(View view){

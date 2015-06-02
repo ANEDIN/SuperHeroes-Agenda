@@ -17,15 +17,13 @@ public class MostrarContacto extends Activity {
 	public static final String EXTRA_POSITION = "com.example.informacion.POSITION";
 	
 	ContactoAgenda contactoActual;
+	ContactoHandler contactoHandler;
 	private TextView edtxtNombre;
 	private TextView edtxtDireccion;
 	private TextView edtxtMail;
 	private TextView edtxtTelefono;
-	
-	
 	//private Button botonCancelar;
 	//private Button botonAceptar;
-	
 	private ImageView imgContacto;
 	private Spinner tipocontacto;
 	private CheckBox chkFacebook;
@@ -34,15 +32,24 @@ public class MostrarContacto extends Activity {
 	private CheckBox chkLinkedin;
 	private RadioGroup sexo;
 	//private VideoView intro;
+	
+	private int posicion;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mostrar_contacto);
 		
-		String Mail = null;
-		int posicion = 0;
+		posicion = 0;
 		contactoActual = new ContactoAgenda();
+		contactoHandler = new ContactoHandler();
+		inicializarVariablesGlobales();
 		
+		obtenerExtras();
+		rellenarFormularioContacto(posicion);
+	}
+	
+	private void inicializarVariablesGlobales() {
 		edtxtNombre = (TextView) findViewById(R.id.txtNombre);
 		edtxtDireccion = (TextView) findViewById(R.id.txtDireccion);
 		edtxtMail= (TextView) findViewById(R.id.txtMail);
@@ -57,58 +64,40 @@ public class MostrarContacto extends Activity {
 		chkLinkedin= ( CheckBox) findViewById(R.id.linkedin);
 		
 		sexo = (RadioGroup) findViewById(R.id.grupo);
+	}
+	
+	private void rellenarFormularioContacto(int posicion) {
+		contactoActual = contactoHandler.recuperarContacto(posicion);
 		
-		//This is GetExtra 
-		posicion = obtenerExtras(posicion);
-		
-		
-	//	Toast.makeText(getApplicationContext(), "Hemos recibido a"+ posicion + Mail, Toast.LENGTH_SHORT).show();
-			
-		rellenarFormularioContacto(posicion);
-		
-		
+		edtxtNombre.setText(contactoActual.getNombre());
+		edtxtDireccion.setText(contactoActual.getDireccion());
+		edtxtMail.setText(contactoActual.getMail());
+		edtxtTelefono.setText(contactoActual.getTelefono());
+		imgContacto.setImageResource(contactoActual.getDrawableImageId());
+		chkFacebook.setChecked(contactoActual.isMiembroFacebook()==1);
+		chkTwitter.setChecked(contactoActual.isMiembroTwitter()==1);
+		chkLinkedin.setChecked(contactoActual.isMiembroLinnkedin()==1);
+		chkGoogle.setChecked(contactoActual.isMiembroGoogle()==1);
+
 		String[] arraytipocontactos = getResources().getStringArray(R.array.tipoContacto_array);
-		tipocontacto.setSelection(Arrays.asList(arraytipocontactos).indexOf(AgendaGlobal.getInstance().miAgenda.get(posicion).getTipoContacto()));
-	//	tipocontacto.setSelection(((ArrayAdapter<String>)tipocontacto.getAdapter()).getPosition("Familia");
-		if (AgendaGlobal.getInstance().miAgenda.get(posicion).isSexo() == 1) sexo.check(R.id.hombre);
+		tipocontacto.setSelection(Arrays.asList(arraytipocontactos).indexOf(contactoActual.getTipoContacto()));
+		
+		if (contactoActual.isSexo() == 1) sexo.check(R.id.hombre);
 		else sexo.check(R.id.mujer);
 	}
-	private void rellenarFormularioContacto(int posicion) {
-		if ( AgendaGlobal.getInstance().miAgenda.get(posicion).getNombre().equals("") ) edtxtNombre.setText("Nombre no entrado");
-		else edtxtNombre.setText(AgendaGlobal.getInstance().miAgenda.get(posicion).getNombre());
-		
-		if ( AgendaGlobal.getInstance().miAgenda.get(posicion).getDireccion().equals("") ) edtxtDireccion.setText("Direccion no entrado");
-		else edtxtDireccion.setText(AgendaGlobal.getInstance().miAgenda.get(posicion).getDireccion());
-		
-		if ( AgendaGlobal.getInstance().miAgenda.get(posicion).getMail().equals("")) edtxtMail.setText("Mail no entrado");
-		else edtxtMail.setText(AgendaGlobal.getInstance().miAgenda.get(posicion).getMail());
-		
-		if ( AgendaGlobal.getInstance().miAgenda.get(posicion).getTelefono().equals("")) edtxtTelefono.setText("Telefono no disponible");
-		else edtxtTelefono.setText(AgendaGlobal.getInstance().miAgenda.get(posicion).getTelefono());
 	
-		imgContacto.setImageResource(AgendaGlobal.getInstance().miAgenda.get(posicion).getDrawableImageId());
-		
-		if (AgendaGlobal.getInstance().miAgenda.get(posicion).isMiembroFacebook()==1) chkFacebook.setChecked(true);
-		else chkFacebook.setChecked(false);
-		
-		if (AgendaGlobal.getInstance().miAgenda.get(posicion).isMiembroTwitter() ==1 )  chkTwitter.setChecked(true);
-		else chkTwitter.setChecked(false);
-		
-		if (AgendaGlobal.getInstance().miAgenda.get(posicion).isMiembroLinnkedin() ==1 )  chkLinkedin.setChecked(true);
-		else chkLinkedin.setChecked(false);
-		
-		if (AgendaGlobal.getInstance().miAgenda.get(posicion).isMiembroGoogle() ==1 )  chkGoogle.setChecked(true);
-		else chkGoogle.setChecked(false);
-	}
-	private int obtenerExtras(int posicion) {
-		String Mail;
+	
+	private void obtenerExtras() {
+		//This is GetExtra 
+		//String Mail;
 		Intent intent = getIntent();
 		Bundle extras= intent.getExtras();
 		if (extras != null) {
-			Mail = extras.getString(EXTRA_MAIL);
-			posicion =extras.getInt(EXTRA_POSITION);
+			//Mail = extras.getString(EXTRA_MAIL);
+			posicion = extras.getInt(EXTRA_POSITION);
+			/* Toast.makeText(getApplicationContext(), "Hemos recibido a"+ posicion + Mail, 
+								Toast.LENGTH_SHORT).show(); */
 		}
-		return posicion;
 	}
 
 }
