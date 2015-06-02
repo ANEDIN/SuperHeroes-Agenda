@@ -1,7 +1,5 @@
 package com.example.tests;
 
-import android.content.Context;
-
 import com.example.informacion.BaseDatosContactos;
 import com.example.informacion.BaseDatosGlobal;
 import com.example.informacion.ContactoAgenda;
