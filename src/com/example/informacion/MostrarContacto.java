@@ -46,7 +46,7 @@ public class MostrarContacto extends Activity {
 		inicializarVariablesGlobales();
 		
 		obtenerExtras();
-		rellenarFormularioContacto(posicion);
+		rellenarFormularioContacto();
 	}
 	
 	private void inicializarVariablesGlobales() {
@@ -66,7 +66,7 @@ public class MostrarContacto extends Activity {
 		sexo = (RadioGroup) findViewById(R.id.grupo);
 	}
 	
-	private void rellenarFormularioContacto(int posicion) {
+	private void rellenarFormularioContacto() {
 		contactoActual = contactoHandler.recuperarContacto(posicion);
 		
 		edtxtNombre.setText(contactoActual.getNombre());
