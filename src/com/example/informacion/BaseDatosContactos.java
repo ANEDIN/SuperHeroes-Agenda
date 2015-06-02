@@ -58,10 +58,63 @@ public class BaseDatosContactos extends SQLiteOpenHelper {
 	private void insertarDatosPrueba(SQLiteDatabase db)
 	{
 		//Inicializo la base de datos con algun contacto
-		insertarContacto(db,"Belen", "c/ Diego Madrazo","1", "belen@gmail.com",1, 1, 0, 0, 0,"Familia", R.drawable.hulk);
-		insertarContacto(db, "Daniel", "c/ Diego Madrazo","2", "daniel@gmail.com",0, 0, 0, 0, 1,"Laboral", R.drawable.spidey);
-		insertarContacto(db, "Eduardo", "c/ Segovia","973269128", "eduardo@gmail.com",0, 0, 0, 1, 1,"Amigo", R.drawable.ironman);
-		insertarContacto(db,"Asuncion", "c/ Paseo de Ronda","92458", "mama@msn.com",1, 1, 1, 0, 0,"Laboral", R.drawable.thor);
+		ContactoAgenda contacto;
+		
+		contacto = new ContactoAgenda();
+		contacto.setNombre("Belen");
+		contacto.setDireccion("c/ Diego Madrazo");
+		contacto.setTelefono("1");
+		contacto.setMail("belen@mail.com");
+		contacto.setMiembroFacebook(1);
+		contacto.setMiembroTwitter(1);
+		contacto.setMiembroGoogle(0);
+		contacto.setMiembroLinnkedin(0);
+		contacto.setSexo(0);
+		contacto.setTipoContacto("Familia");
+		contacto.setDrawableImageId(R.drawable.hulk);
+		insertarContacto(contacto);
+		
+		contacto = new ContactoAgenda();
+		contacto.setNombre("Daniel");
+		contacto.setDireccion("c/ Diego Madrazo");
+		contacto.setTelefono("2");
+		contacto.setMail("daniel@mail.com");
+		contacto.setMiembroFacebook(0);
+		contacto.setMiembroTwitter(0);
+		contacto.setMiembroGoogle(0);
+		contacto.setMiembroLinnkedin(0);
+		contacto.setSexo(1);
+		contacto.setTipoContacto("Laboral");
+		contacto.setDrawableImageId(R.drawable.spidey);
+		insertarContacto(contacto);
+		
+		contacto = new ContactoAgenda();
+		contacto.setNombre("Eduardo");
+		contacto.setDireccion("c/ Segovia");
+		contacto.setTelefono("973221100");
+		contacto.setMail("eduardo@mail.com");
+		contacto.setMiembroFacebook(0);
+		contacto.setMiembroTwitter(0);
+		contacto.setMiembroGoogle(0);
+		contacto.setMiembroLinnkedin(1);
+		contacto.setSexo(1);
+		contacto.setTipoContacto("Amigo");
+		contacto.setDrawableImageId(R.drawable.ironman);
+		insertarContacto(contacto);
+
+		contacto = new ContactoAgenda();
+		contacto.setNombre("Asuncion");
+		contacto.setDireccion("c/ Paseo de Ronda");
+		contacto.setTelefono("999888777");
+		contacto.setMail("asuncion@mail.com");
+		contacto.setMiembroFacebook(1);
+		contacto.setMiembroTwitter(1);
+		contacto.setMiembroGoogle(1);
+		contacto.setMiembroLinnkedin(0);
+		contacto.setSexo(0);
+		contacto.setTipoContacto("Laboral");
+		contacto.setDrawableImageId(R.drawable.thor);
+		insertarContacto(contacto);
 	}
 
 	@Override
